@@ -1,0 +1,321 @@
+
+* {
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+h2 {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+p {
+	font-size: 14px;
+	font-family: Verdana, sans-serif;
+}
+
+hr {
+	width: 80%;
+}
+
+a {
+	text-decoration: none;
+	font-weight: bold;
+	color: #fff;
+}
+
+/*HEADER------------------------------------------*/
+
+header {
+	position: fixed;
+	top: 0px;
+	min-height: 60px;
+	max-height: 120px;
+	width: 100%;;
+	z-index: 10;
+	/*background-color: #1a001a;*/
+	box-shadow: 0px 0px 10px 0px black;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.315);
+	background: rgb(75,0,13);
+	background: linear-gradient(90deg, rgb(105, 0, 35) 0%, rgb(54, 0, 0) 100%);
+}
+
+body {
+	margin: 0px;
+	background-color: rgb(12, 12, 12);
+}
+
+.topbar a {
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.topbar {
+	margin: 0px 40px;
+}
+
+.logo {
+	width: 100px;
+	height: 60px;
+	float: left;
+	margin-right: 20px;;
+}
+
+.logo img, .logo a {
+	width: 100px;
+	height: 60px;
+}
+
+.navegar {
+	text-align: left;
+	padding: 0px 0px;
+	width: 50%;
+	float: left;
+	margin: 20px 0px;
+}
+
+
+.navegar a {
+	height: 20px;
+	padding: 20px 10px;
+}
+
+.navegar a:hover {
+	color: #000;
+	background-color: #e6e600;
+}
+
+.navegar a {
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+
+.login {
+	right: 0px;
+	width: 200px;
+	height: 20px;
+	padding: 0px 0px;
+	margin: 20px 0px;
+	float: right;
+}
+
+.login a {
+	padding-left: 8px;
+	border-left: 1px solid #00ffff;
+	color: #fff;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;;
+}
+
+.login a:hover {
+	color: rgb(189, 186, 0);
+}
+
+/*Cuerpo principal--------------------------------------*/
+
+.cuerpo {
+	margin: 0px 8%;
+	clear: both;
+}
+
+.filtro {
+	position: relative;
+	top: 60px;
+	float: left;
+	color: white;
+	background-color: rgb(43, 5, 5);
+	width: 15%;
+	padding: 1.5%;
+	font-size: 14px;
+	border-radius: 5px;
+	margin: 10px 0px;
+}
+
+.ordenar-section {
+	margin: 10px 0px;
+	padding: 10px 0px;
+}
+
+.filtro label {
+	display: block;
+}
+
+.filtro select {
+	margin: 10px 0px 0px 0px;
+	width: 100%;
+	border: 3px solid rgb(221, 0, 0);
+	background-color: #ffffff;
+	height: 30px;  
+}
+
+.filtro select:hover {
+	border-color: #b6b600;
+}
+
+.filtro-submit {
+	text-align: center;
+}
+
+.filtro input[type=submit] {
+	background-color: #cc0000;
+	text-decoration: none;
+	font-weight: bold;
+	color: white;
+	cursor: pointer;
+	width: 100%;
+	padding: 4px;
+	border: none;
+	border-radius: 10px;
+	outline: none;
+}
+
+.filtro input[type=submit] {
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+
+.filtro input[type=submit]:hover {
+	background-color: #e6e600;
+	color: #000;
+}
+
+.filtro input[type=submit]:active {
+	border: none;
+	background-color: #868600;
+}
+
+.confesiones {
+	position: relative;
+	top: 60px;
+	float: left;
+	height: 700px;
+	width: 67%;
+	color: #fff;
+}
+
+.confesiones div {
+	width: 100%;
+}
+
+.confesiones p {
+	text-align: justify;
+	padding: 0px 20px;
+}
+
+.confesiones section {
+	margin: 10px 10px;
+	background-color: #1d1d1d;
+	border-radius: 8px;
+}
+
+.confes-header {
+	padding: 10px 20px;
+}
+
+.confes-footer {
+	text-align: right;
+	padding: 10px;
+	font-weight: bold;
+}
+
+.confesiones form {
+	display: inline-block;
+	margin: 0px 30px 0px 0px;
+}
+
+.precio {
+	border: none;
+	background-color: #cc0000;
+	color: #fff;
+	width: 120px;
+	display: inline-block;
+	text-align: center;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.p {
+	margin: 0px 15px;
+}
+
+.confesiones input[type=submit] {
+	font-weight: bold;
+	color: #fff;
+	background-color: #009220;
+	border-radius: 5px;
+	border: none;
+	padding: 3px;
+	width: 70px;
+	height: 30px;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	-webkit-transition-duration: 0.2s;
+	transition-duration: 0.2s;
+	display: inline-block;
+}
+
+.confesiones input[type=submit]:hover {
+	background-color: #e6e600;
+	color: #000;
+}
+
+.adicional {
+	position: relative;
+	top: 60px;
+	color: #fff;
+	float: right;
+	width: 13%;
+	background-color: #3f0000;
+	border-radius: 5px;
+	font-size: 14px;
+	margin: 10px 0px;
+	padding: 1%;
+	float: left;
+}
+
+.adicional label {
+	display: block;
+}
+
+.adicional figure {
+	margin: 10px 0px 0px 0px;
+}
+
+.adicional figcaption {
+	margin: 15px 0px;
+}
+
+.adicional img {
+	width: 100%;
+	margin: 10px 0px;
+}
+
+.adicional input {
+	width: 95%;
+	border: 3px solid rgb(221, 0, 0);
+	background-color: #ffffff;
+	height: 25px;  
+}
+
+footer {
+	position: relative;
+	top: 60px;
+	width: 100%;
+	height: 40px;
+	background-color: rgb(15, 15, 15);
+	clear: both;
+	color: #fff;
+	padding: 10px 0px;
+}
+
+footer span {
+	font-size: 14px;
+	margin: 10px 10px;
+	display: inline-block;
+	color: rgb(92, 92, 92);
+}
+
+footer a {
+	float: right;
+	margin: 10px 20px;
+}
