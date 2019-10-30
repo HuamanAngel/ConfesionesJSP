@@ -9,7 +9,7 @@
 		<div class="topbar">
 			<div class="logo">
 				<!--Cambiar imagen-->
-				<a href="index.html"><img src="img/Confes.png" alt="Confe$ione$"></a>
+				<a href="index.jsp"><img src="img/Confes.png" alt="Confe$ione$"></a>
 			</div>
 			<nav class="navegar">
 					<a href="">Trending</a>
@@ -18,8 +18,8 @@
 					<a href="">Antiguos</a>
 			</nav>
 			<div class="login">
-				<a href="login/login.html">Login</a>
-				<a href="login/registro.html">Registrarse</a>
+				<a href="login/login.jsp">Login</a>
+				<a href="login/registro.jsp">Registrarse</a>
 			</div>
 		</div>
 	</header>
