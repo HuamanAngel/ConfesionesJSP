@@ -1,7 +1,10 @@
+<%@page import="java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Confe$ione$</title>
+	
+	<meta http-equiv=”Content-Type” content=”text/html; charset=ISO-8859-1″ />
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
@@ -53,9 +56,62 @@
 		</form>
 
 		<main class="confesiones">
+			
+			<!--Proceso de session-->
+			<%
+				boolean Scomparador=false;
+				List<String> listaElementos=(List<String>)session.getAttribute("misElementos");
+				if(listaElementos==null){
+					listaElementos=new ArrayList<String>();
+					session.setAttribute("misElementos",listaElementos);
+				}
+				String elementos=request.getParameter("TAconfesion");
+				if(elementos!=null && elementos!=" "){
+					for(String auxiliar:listaElementos){
+						if(elementos.equals(auxiliar)){
+							Scomparador=true;
+						}
+					}
+					if(Scomparador==false){
+						
+						listaElementos.add(elementos);
+					}
+				}
+			%>
+			<!--Proceso de session-->
+			<!--Cuadro de texto mejorado-->
+			<section id="confe3" class="Ctexto">
+				<div class="confes-header">
+					<h2>Confesión #0003</h2>
+					<hr>
+				</div>
+				<form action="index.jsp" method="post">
+					<textarea name="TAconfesion" wrap="Hard" placeholder="Confiesate"></textarea>
+					<div class="confes-footer">
+						<!--<span class="p">Precio: </span> <span class="precio">S/ 10.00</span>-->
+							<input type="submit" value="Confesar" name="pagar">
+					</div>
+				</form>
+			</section>
+			
+			<!--Fin Cuadro de texto mejorado-->
+			
+			<!--Cuadro de resultado-->	
+			<%
+				if(listaElementos!=null){
+					for(String elemTemp : listaElementos){
+						out.println("<section>"+"<div class='confes-header'><h2>Confesión #0003</h2><hr></div>"+"<p>"+elemTemp+"</p>"+ "<div class='confes-footer'><span class='p'>Precio: </span> <span class='precio'>S/ 10.00</span><form action=''><input type='submit' value='Pagar' name='pagar'></form></div>"+"</section>");
+					}
+				}
+			%>
+			<!--Fin Cuadro de resultado-->
+			
+			
+			
+			
 			<section id="confe1">
 				<div class="confes-header">
-					<h2>Confesión #0001</h2>
+					<h2>Confesión ñabga #0001</h2>
 					<hr>
 				</div>
 				<p>Morbi rutrum, turpis at efficitur scelerisque, 
@@ -91,6 +147,7 @@
 						<form action="">
 							<input type="submit" value="Pagar" name="pagar">
 						</form>
+					</div>
 			</section>
 			<section id="confe3">
 				<div class="confes-header">
@@ -105,14 +162,15 @@
 						vitae dapibus velit. Nunc tristique nisi id porttitor finibus.
 						Praesent scelerisque urna vel euismod rhoncus. Nulla porttitor lobortis risus, 
 						vitae dapibus velit. Nunc tristique nisi id porttitor finibus.</p>
-					<div class="confes-footer">
-						<span class="p">Precio: </span> <span class="precio">S/ 10.00</span>
-						<form action="">
-							<input type="submit" value="Pagar" name="pagar">
-						</form>
-			</section>
+				<div class="confes-footer">
+					<span class="p">Precio: </span> <span class="precio">S/ 10.00</span>
+					<form action="">
+						<input type="submit" value="Pagar" name="pagar">
+					</form>
+				</div>
+			</section>	
 		</main>
-
+		<br>
 		<aside class="adicional">
 			<form action="">
 				<label for="buscar">Buscar: </label>
@@ -125,13 +183,13 @@
 			</figure>
 		</aside>
 	</div>
-
+	<!--
 	<footer>
 		<span>Copyright© 2019 Confe$$ Todos los derechos reservados</span>
 		<a href="">Contacto</a>
 		<a href="">Nosotros</a>
 		<a href="">Términos y condiciones</a>
 	</footer>
-
+	-->
 </body>
 </html>
