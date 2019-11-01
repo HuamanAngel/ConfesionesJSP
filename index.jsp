@@ -98,11 +98,31 @@
 			
 			<!--Cuadro de resultado-->	
 			<%
-				if(listaElementos!=null){
-					for(String elemTemp : listaElementos){
-						out.println("<section>"+"<div class='confes-header'><h2>Confesión #0003</h2><hr></div>"+"<p>"+elemTemp+"</p>"+ "<div class='confes-footer'><span class='p'>Precio: </span> <span class='precio'>S/ 10.00</span><form action=''><input type='submit' value='Pagar' name='pagar'></form></div>"+"</section>");
+				try{
+					int LSindice=listaElementos.size();
+					
+					String header=" ";
+					String Sauxiliar=" ";
+					if(listaElementos!=null){
+						for(int i=LSindice-1;i>-1;i--){
+							Sauxiliar=(String)listaElementos.get(i);
+							if(i<10){
+								header="Confesion #00";
+							}
+							if(i>=10 && i<100){
+								header="Confesion #0";
+							}
+							if(i>=100 && i<999){
+								header="Confesion #";
+							}
+							out.println("<section>"+"<div class='confes-header'><h2>"+header+""+i+"</h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>Precio: </span> <span class='precio'>S/ 10.00</span><form action=''><input type='submit' value='Pagar' name='pagar'></form></div>"+"</section>");
+						}
+						
 					}
+				}catch(Exception e){
+					out.println("<h1>"+"Error al mostrar los comentarios"+"</h1>");
 				}
+				
 			%>
 			<!--Fin Cuadro de resultado-->
 			
@@ -111,7 +131,7 @@
 			
 			<section id="confe1">
 				<div class="confes-header">
-					<h2>Confesión ñabga #0001</h2>
+					<h2>Confesión #0001</h2>
 					<hr>
 				</div>
 				<p>Morbi rutrum, turpis at efficitur scelerisque, 
