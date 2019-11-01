@@ -1,6 +1,6 @@
 Instalar Tomcat
 Entrar a : C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps\
 Clonar el repositorio
-Entrar al servidor de Tomcat : por defecto http://localhost:8080 o http://localhost:puetro o http://IPv4:puerto
+Entrar al servidor de Tomcat : por defecto http://localhost:3306 o http://localhost:puerto o http://IPv4:puerto
 Entrar a ManagerApp
 Luego buscar el repositorio creado y darle click, y listo
