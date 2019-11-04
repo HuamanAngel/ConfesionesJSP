@@ -1,3 +1,7 @@
+<%@page import="operacionesBasicas.*"%>
+<%@page import="java.util.*"%>
+<%@page import="java.sql.*" %>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -12,13 +16,21 @@
 <body>
     <div class="contenedor">
         <img class="avatar" src="../img/ConfesSinFondo.png">
-        <form action="">
-            <label for="nombre">Nombre y Apellido</label>
-            <input type="text" name="" id="nombre">
+        <form action="registro.jsp">
+            <label for="nombre">Nombres</label>
+            <input type="text" name="nombreReal" id="nombre">
             <br/>
+            
+            <label for="nombre">Apellidos</label>
+            <input type="text" name="apellidoReal" id="nombre">
+            <br/>
+            
+            <input type="radio" name="sexo" value="F">Femenino<br>
+			<input type="radio" name="sexo" value="M">Masculino<br>
+				
             <br>
             <label for="u">Universidad / Instituto  </label>
-            <select name="" id="u">
+            <select name="Institucion" id="u">
                 <option value="Seleccionar">Seleccionar</option>
                 <option value="UNMSM">UNMSM</option>
                 <option value="UNI">UNI</option>
@@ -30,20 +42,20 @@
             <br/>
             <br />
             <label for="usuario">Nombre de Usuario</label>
-            <input type="text" name="" id="usuario">
+            <input type="text" name="Usuario" id="usuario">
             <br>
             <label for="contraseña">Contraseña</label>
-            <input type="password" name="" id="contraseña">
+            <input type="password" name="Contra" id="contraseña">
             <br>
             <label for="confirmacion">Confirmación de Contraseña</label>
             <input type="password" name="" id="confirmacion">
             <br>
             <label for="telefono">Número de Teléfono</label>
-            <input type="text" name="" id="telefono">
+            <input type="text" name="Telefono" id="telefono">
             <br>
             <br>
             <label for="pago">Modalidad de Pago  </label>
-            <select name="" id="p">
+            <select name="Modalidad" id="p">
                 <option value="Seleccionar">Seleccionar</option>
                 <option value="VISA">VISA</option>
                 <option value="PAYPAL">PAYPAL</option>
@@ -56,6 +68,90 @@
             <input type="submit" value="Registrar">
                     
         </form>
+       
+		<h1>
+		<%	
+			ClaseConexion g1=new ClaseConexion();
+            String DBusuario = g1.getUsuario();
+            String DBcontra = g1.getContra();
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection miConexion=null;
+            
+			
+			miConexion=DriverManager.getConnection("jdbc:mysql://35.226.151.184:3306/confesiones",DBusuario,DBcontra);
+            Statement miStatement=miConexion.createStatement();
+    		ResultSet miResultSet=miStatement.executeQuery("SELECT * FROM usuario");
+    				
+            
+			
+			int contadorUsuarios=0;
+			
+			String Rname = request.getParameter("nombreReal");
+			String Rapellido = request.getParameter("apellidoReal");
+			
+			String Ssexo = request.getParameter("sexo");
+			String Sinstitucion=request.getParameter("Institucion");
+			String Susuario = request.getParameter("Usuario");
+			String Scontra= request.getParameter("Contra");
+			
+			int Itelefono=0;
+			String Stelefono = request.getParameter("Telefono");
+			String Smodalidad= request.getParameter("Modalidad");
+			try{
+				Itelefono=Integer.parseInt(Stelefono);
+			}catch(Exception e){
+				out.println("No se colocaron numeros");
+			}
+			
+			//Nuevos campos//
+			
+			//Fin nuevos campos//
+			
+			boolean Busuario = false;
+			boolean Bcontra= false;
+			boolean Btelefono = false;
+			
+			if(Susuario !=null && Scontra!=null && Ssexo!=null &&Stelefono!=null && Sinstitucion!=null ){
+				while(miResultSet.next()){
+					contadorUsuarios=miResultSet.getInt("idUsuario");
+					Busuario = miResultSet.getString("nombreUsuario").equals(Susuario);
+					
+					Bcontra = miResultSet.getString("contrase�a").equals(Scontra);
+					Btelefono = miResultSet.getString("numTelefono").equals(Stelefono);
+					
+				}	
+			}else{
+				out.println("Tiene que colocar todos los campos");
+			}
+			
+			if(Susuario!=null && Busuario==false){
+				if(Ssexo!=null){
+					if(Scontra!=null && Bcontra==false){
+						if(Stelefono!=null && Btelefono==false){
+							if(Sinstitucion!=null ){
+								contadorUsuarios++;
+								miStatement.executeUpdate("INSERT INTO usuario VALUE("+contadorUsuarios+",'"+Rname+"','"+Rapellido+"','"+Sinstitucion+"','"+Ssexo+"','"+Susuario+"','"+Scontra+"',"+Itelefono+",'"+Smodalidad+"')");
+								miConexion.close();
+								response.sendRedirect("../index.jsp");
+							}else{
+								out.println("Selecione el pais");
+							}
+						}else{
+							out.println("Correo no valido");
+						}
+					}else{
+						out.println("Contrase�a no valida");
+					}
+				}else{
+					out.println("Debe especificar su genero");
+				}
+			}else{
+				out.println("Usuario no valido");
+			}
+			
+		%>
+		</h1>
+		  
     </div>
 
 </body>

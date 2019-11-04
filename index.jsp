@@ -1,4 +1,6 @@
+<%@page import="operacionesBasicas.*"%>
 <%@page import="java.util.*"%>
+<%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,8 +23,24 @@
 					<a href="">Antiguos</a>
 			</nav>
 			<div class="login">
-				<a href="login/login.jsp">Login</a>
-				<a href="login/registro.jsp">Registrarse</a>
+			<!-- Session -->
+			<%
+				
+				List<String> listaDatos=(List<String>)session.getAttribute("DatosUser");
+				if(listaDatos==null){
+					out.println("<a href='login/login.jsp'>Login</a>");
+					out.println("<a href='login/registro.jsp'>Registrarse</a>");
+				}else{
+					out.println("<a href='infoUser.jsp'>"+listaDatos.get(5)+"</a>");
+					out.println("<a href='login/loginOff.jsp'>Cerra Sesion</a>");	
+				}
+			%>
+			<!-- Fin de session -->
+			<!-- Base de datos de las Confesiones -->
+			
+		
+			<!-- Fin Base de datos de las confesiones -->
+			
 			</div>
 		</div>
 	</header>
@@ -56,25 +74,61 @@
 		</form>
 
 		<main class="confesiones">
-			
 			<!--Proceso de session-->
 			<%
-				boolean Scomparador=false;
-				List<String> listaElementos=(List<String>)session.getAttribute("misElementos");
-				if(listaElementos==null){
-					listaElementos=new ArrayList<String>();
-					session.setAttribute("misElementos",listaElementos);
+				int idUsuario=0;
+				int contadorConfesion=0;
+				String etiqueta="UNMSM";
+				ConexionComentarios g2=new ConexionComentarios();
+				g2.Conectar();
+				List<String> infoUser=(List<String>)session.getAttribute("DatosUser");
+				
+				try{
+					idUsuario=Integer.parseInt(infoUser.get(0));
+				}catch(Exception e){
 				}
+		
+				
+				contadorConfesion = g2.getContadorPucp()+g2.getContadorUnmsm();
+				
+				
+				ClaseConexion g1=new ClaseConexion();
+	            String DBusuario = g1.getUsuario();
+	            String DBcontra = g1.getContra();
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection miConexion=null;
+				miConexion=DriverManager.getConnection("jdbc:mysql://35.226.151.184:3306/confesiones",DBusuario,DBcontra);
+	            Statement miStatement=miConexion.createStatement();
+				
+
+				
+				boolean Scomparador=false;
+				
+				//IP
+				String IP="0";
+				try {
+					IP=java.net.InetAddress.getLocalHost().getHostAddress();
+				} catch (Exception e) {
+					
+				}
+				//Fin IP
+				
 				String elementos=request.getParameter("TAconfesion");
 				if(elementos!=null && elementos!=" "){
-					for(String auxiliar:listaElementos){
+					for(String auxiliar:g2.getSalidaConfesiones()){
 						if(elementos.equals(auxiliar)){
 							Scomparador=true;
 						}
 					}
-					if(Scomparador==false){
-						
-						listaElementos.add(elementos);
+					if(Scomparador==false && elementos!=null){
+			            contadorConfesion++; 
+						if(infoUser!=null){
+							miStatement.executeUpdate("INSERT INTO confesion VALUE("+contadorConfesion+",'"+elementos+"',"+idUsuario+",'"+etiqueta+"','"+IP+"')");	
+						}else{
+							idUsuario=1;
+							miStatement.executeUpdate("INSERT INTO confesion VALUE("+contadorConfesion+",'"+elementos+"',"+idUsuario+",'"+etiqueta+"','"+IP+"')");	
+						}
+			            miConexion.close();
 					}
 				}
 			%>
@@ -97,15 +151,27 @@
 			<!--Fin Cuadro de texto mejorado-->
 			
 			<!--Cuadro de resultado-->	
+			
 			<%
+				ArrayList<String> allConfesion;
+				ArrayList<String> allEtiqueta;
+				ConexionComentarios g4=new ConexionComentarios();
+				g4.Conectar();
+				allConfesion=g4.getSalidaConfesiones();
+				allEtiqueta=g4.getSalidaInstitucion();
+				
 				try{
-					int LSindice=listaElementos.size();
+					int LSindice=allConfesion.size();
 					
 					String header=" ";
 					String Sauxiliar=" ";
-					if(listaElementos!=null){
+					String Setiqueta=" ";
+					if(allConfesion!=null){
 						for(int i=LSindice-1;i>-1;i--){
-							Sauxiliar=(String)listaElementos.get(i);
+							Sauxiliar=(String)allConfesion.get(i);
+							//Etiqueta de las confesiones//
+							Setiqueta=(String)allEtiqueta.get(i);
+							//Fin etiqueta de las confesiones//
 							if(i<10){
 								header="Confesion #00";
 							}
@@ -115,7 +181,7 @@
 							if(i>=100 && i<999){
 								header="Confesion #";
 							}
-							out.println("<section>"+"<div class='confes-header'><h2>"+header+""+i+"</h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>Precio: </span> <span class='precio'>S/ 10.00</span><form action=''><input type='submit' value='Pagar' name='pagar'></form></div>"+"</section>");
+							out.println("<section>"+"<div class='confes-header'><h2>"+header+""+i+""+"  "+""+Setiqueta+"</h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>Precio: </span> <span class='precio'>S/ 10.00</span><form action=''><input type='submit' value='Pagar' name='pagar'></form></div>"+"</section>");
 						}
 						
 					}
@@ -141,7 +207,11 @@
 					Praesent scelerisque urna vel euismod rhoncus. Nulla porttitor lobortis risus, 
 					vitae dapibus velit. Nunc tristique nisi id porttitor finibus.
 					Praesent scelerisque urna vel euismod rhoncus. Nulla porttitor lobortis risus, 
-					vitae dapibus velit. Nunc tristique nisi id porttitor finibus.</p>
+					vitae dapibus velit. Nunc tristique nisi id porttitor finibus.
+			
+					
+					
+				</p>
 				<div class="confes-footer">
 					<span class="p">Precio: </span> <span class="precio">S/ 2.00</span>
 					<form action="">
