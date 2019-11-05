@@ -85,7 +85,7 @@ public class ConexionComentarios extends ClaseConexion{
 		Connection miConexion=null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			miConexion=DriverManager.getConnection("jdbc:mysql://35.226.151.184:3306/confesiones",g1.getUsuario(),g1.getContra());
+			miConexion=DriverManager.getConnection(g1.getUrl(),g1.getUsuario(),g1.getContra());
 			Statement miStatement=miConexion.createStatement();
 			ResultSet miResultSet=miStatement.executeQuery("SELECT * FROM confesion");
 			while(miResultSet.next()) {

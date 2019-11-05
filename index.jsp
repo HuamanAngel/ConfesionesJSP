@@ -72,10 +72,14 @@
 				<input type="submit" name="Aceptar" value="Filtrar">
 			</section>
 		</form>
-
 		<main class="confesiones">
 			<!--Proceso de session-->
+			
+		
 			<%
+				try{
+					
+				
 				int idUsuario=0;
 				int contadorConfesion=0;
 				String etiqueta="UNMSM";
@@ -88,19 +92,15 @@
 				}catch(Exception e){
 				}
 		
-				
 				contadorConfesion = g2.getContadorPucp()+g2.getContadorUnmsm();
-				
 				
 				ClaseConexion g1=new ClaseConexion();
 	            String DBusuario = g1.getUsuario();
 	            String DBcontra = g1.getContra();
 				Class.forName("com.mysql.jdbc.Driver");
 				Connection miConexion=null;
-				miConexion=DriverManager.getConnection("jdbc:mysql://35.226.151.184:3306/confesiones",DBusuario,DBcontra);
+				miConexion=DriverManager.getConnection(g1.getUrl(),DBusuario,DBcontra);
 	            Statement miStatement=miConexion.createStatement();
-				
-
 				
 				boolean Scomparador=false;
 				
@@ -131,12 +131,15 @@
 			            miConexion.close();
 					}
 				}
+				}catch(Exception e){
+					out.println("<label>"+"No se pudo conectar a la base de datos"+"</label>");
+				}
 			%>
 			<!--Proceso de session-->
 			<!--Cuadro de texto mejorado-->
 			<section id="confe3" class="Ctexto">
 				<div class="confes-header">
-					<h2>Confesión #0003</h2>
+					<h2>Confesion   <% List<String> info=(List<String>)session.getAttribute("DatosUser");if(info==null){out.println("<label class='etiquetaName'>Anonimo</label>"+ "     <label class='etiquetaName'>UNMSM</label>     "+"<label class='etiquetaName'>No detectable</label>" );}else{out.println("<label class='etiquetaName'>"+info.get(5) + "</label>     <label class='etiquetaName'>" + info.get(4)+"</label>"+"     <label class='etiquetaName'>Detectable</label>");}%></h2>
 					<hr>
 				</div>
 				<form action="index.jsp" method="post">
@@ -155,23 +158,32 @@
 			<%
 				ArrayList<String> allConfesion;
 				ArrayList<String> allEtiqueta;
+				ArrayList<Integer> allIdUsuarios;
 				ConexionComentarios g4=new ConexionComentarios();
 				g4.Conectar();
 				allConfesion=g4.getSalidaConfesiones();
 				allEtiqueta=g4.getSalidaInstitucion();
-				
+				allIdUsuarios = g4.getSalidaUsuarios();
 				try{
 					int LSindice=allConfesion.size();
 					
 					String header=" ";
 					String Sauxiliar=" ";
 					String Setiqueta=" ";
+					int Sid=1;
 					if(allConfesion!=null){
 						for(int i=LSindice-1;i>-1;i--){
+							String Pago=" ";
 							Sauxiliar=(String)allConfesion.get(i);
 							//Etiqueta de las confesiones//
 							Setiqueta=(String)allEtiqueta.get(i);
 							//Fin etiqueta de las confesiones//
+							Sid=(int)allIdUsuarios.get(i);
+							if(Sid==1){
+								Pago="No detectable";
+							}else{
+								Pago="Detectable";
+							}
 							if(i<10){
 								header="Confesion #00";
 							}
@@ -181,7 +193,7 @@
 							if(i>=100 && i<999){
 								header="Confesion #";
 							}
-							out.println("<section>"+"<div class='confes-header'><h2>"+header+""+i+""+"  "+""+Setiqueta+"</h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>Precio: </span> <span class='precio'>S/ 10.00</span><form action=''><input type='submit' value='Pagar' name='pagar'></form></div>"+"</section>");
+							out.println("<section>"+"<div class='confes-header'><h2>"+header+""+i+"     <label class='etiquetaName'>Anonimo</label>     <label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>Precio: </span> <span class='precio'>S/ 10.00</span><form action=''><input type='submit' value='Pagar' name='pagar'></form></div>"+"</section>");
 						}
 						
 					}

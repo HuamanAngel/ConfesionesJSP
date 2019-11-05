@@ -321,6 +321,16 @@ footer a {
 	margin: 10px 20px;
 }
 
+/*Label*/
+label.etiquetaName{
+	
+	background-color:green;
+	font-size:10px;
+	border-radius:2px;
+}
+
+
+/*-------------*/
 
 /*Texto de area responsive*/
 

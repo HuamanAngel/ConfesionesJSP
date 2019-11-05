@@ -78,7 +78,7 @@
 			Connection miConexion=null;
             
 			
-			miConexion=DriverManager.getConnection("jdbc:mysql://35.226.151.184:3306/confesiones",DBusuario,DBcontra);
+			miConexion=DriverManager.getConnection(g1.getUrl(),DBusuario,DBcontra);
             Statement miStatement=miConexion.createStatement();
     		ResultSet miResultSet=miStatement.executeQuery("SELECT * FROM usuario");
     				
