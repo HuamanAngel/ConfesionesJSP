@@ -1,24 +1,24 @@
-CREATE DATABASE Confesiones;
-USE Confesiones;
-CREATE TABLE Usuario(
+CREATE DATABASE confesiones;
+USE confesiones;
+CREATE TABLE usuario(
 	idUsuario int NOT NULL AUTO_INCREMENT,
     nombre varchar(45) NOT NULL,
     apellidos varchar(45) NOT NULL,
     institucion varchar(45) NOT NULL,
+    sexo VARCHAR(5),
     nombreUsuario varchar(10) NOT NULL UNIQUE,
     contraseña varchar(8) NOT NULL UNIQUE,
-    sexo varchar(5) NOT NULL,
 	numTelefono int NOT NULL,
 	modalidadPago varchar(10) NOT NULL,
 	PRIMARY KEY(idUsuario)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
-CREATE TABLE Confesion(
+CREATE TABLE confesion(
 	idConfesion int NOT NULL AUTO_INCREMENT,
-    etiqueta varchar(20) NOT NULL,
 	confesion varchar(141) NOT NULL,
 	idUsConf int NOT NULL,
-    ip varchar(22) NOT NULL,
+    etiqueta VARCHAR(20),
+    direccionIp VARCHAR(22),
     PRIMARY KEY(idConfesion),
     KEY idUsConf(idUsConf)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
