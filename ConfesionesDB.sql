@@ -13,6 +13,8 @@ CREATE TABLE usuario(
 	PRIMARY KEY(idUsuario)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
+INSERT INTO usuario VALUE(1,'Anonimo','Anonimo','unmsm','HF','Anonimo','aBzJdea',9999,'NotInfo');
+
 CREATE TABLE confesion(
 	idConfesion int NOT NULL AUTO_INCREMENT,
 	confesion varchar(141) NOT NULL,
@@ -22,6 +24,8 @@ CREATE TABLE confesion(
     PRIMARY KEY(idConfesion),
     KEY idUsConf(idUsConf)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+
+INSERT INTO confesion VALUE(1,'Mi primera confesion es la sgt:',1,'unmsm',3434);
 
 ALTER TABLE Confesion
 	ADD CONSTRAINT Confesion_ibfk_1 FOREIGN KEY (idUsConf) REFERENCES Usuario (idUsuario) ON DELETE CASCADE ON UPDATE CASCADE;
