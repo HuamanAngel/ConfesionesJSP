@@ -46,16 +46,19 @@
 	</header>
 
 	<div class="cuerpo">
-		<form class="filtro">
+		<form class="filtro" action="index.jsp" method="post">
 			<section class="instituciones-section">
 				<label for="instituciones">Filtrar por institución: </label>
 				<select id="instituciones" name="filtro-institucion">
+					<option value="all">Todos</option>
 					<option value="unmsm">UNMSM</option>
-					<option value="uni">UNI</option>
-					<option value="unac">UNAC</option>
 					<option value="pucp">PUCP</option>
+					<option value="uni">UNI</option>
+					<option value="unalm">UNALM</option>
 					<option value="upc">UPC</option>
 					<option value="upn">UPN</option>
+					<option value="unfv">UNFV</option>
+					<option value="unac">UNAC</option>
 				</select>
 			</section>
 
@@ -64,7 +67,7 @@
 				<select id="ordenar" name="ordenar">
 					<option value="antiguedad">Antiguedad</option>
 					<option value="likes">Likes</option>
-					<option value="mas-pagados">Más pagados</option>
+					<option value="mas-pagados">Mas pagados</option>
 				</select>
 			</section>
 
@@ -86,6 +89,10 @@
 				ConexionComentarios g2=new ConexionComentarios();
 				g2.Conectar();
 				List<String> infoUser=(List<String>)session.getAttribute("DatosUser");
+				
+				if(infoUser!=null){
+					etiqueta = infoUser.get(4);
+				}
 				
 				try{
 					idUsuario=Integer.parseInt(infoUser.get(0));
@@ -155,35 +162,105 @@
 			
 			<!--Cuadro de resultado-->	
 			
-			<%
+			<%		
 				ArrayList<String> allConfesion;
 				ArrayList<String> allEtiqueta;
 				ArrayList<Integer> allIdUsuarios;
+				
+				String Pago=" ";
+				
+				
 				ConexionComentarios g4=new ConexionComentarios();
 				g4.Conectar();
 				allConfesion=g4.getSalidaConfesiones();
 				allEtiqueta=g4.getSalidaInstitucion();
 				allIdUsuarios = g4.getSalidaUsuarios();
+				
+				String filtro = null;
+				filtro=request.getParameter("filtro-institucion");
+					
 				try{
 					int LSindice=allConfesion.size();
+					String Setiqueta="No encontrado";
+					if(filtro==null || "all".equals(filtro)){
+						LSindice=g4.getSalidaConfesiones().size();
+						allIdUsuarios = g4.getSalidaUsuarios();						
+						allConfesion = g4.getSalidaConfesiones();
+					}
+					if("unmsm".equals(filtro)){
+						Setiqueta="UNMSM";
+						LSindice=g4.getSalidaUnmsm().size();
+						allIdUsuarios = g4.getSalidaUsuariosUnmsm();
+						allConfesion = g4.getSalidaUnmsm();
+					}
+					if("pucp".equals(filtro)){
+						Setiqueta="PUCP";
+						LSindice=g4.getSalidaPucp().size();
+						allIdUsuarios = g4.getSalidaUsuariosPucp();
+						allConfesion = g4.getSalidaPucp();
+					}
+
+					if("uni".equals(filtro)){
+						Setiqueta="UNI";
+						LSindice=g4.getSalidaUni().size();
+						allIdUsuarios = g4.getSalidaUsuariosUni();
+						allConfesion = g4.getSalidaUni();
+					}
+					if("unalm".equals(filtro)){
+						Setiqueta="UNALM";
+						LSindice=g4.getSalidaUnalm().size();
+						allIdUsuarios = g4.getSalidaUsuariosUnalm();
+						allConfesion = g4.getSalidaUnalm();
+					}
+
+					if("upc".equals(filtro)){
+						Setiqueta="UPC";
+						LSindice=g4.getSalidaUpc().size();
+						allIdUsuarios = g4.getSalidaUsuariosUpc();
+						allConfesion = g4.getSalidaUpc();
+					}
+					if("upn".equals(filtro)){
+						Setiqueta="UPN";
+						LSindice=g4.getSalidaUpn().size();
+						allIdUsuarios = g4.getSalidaUsuariosUpn();
+						allConfesion = g4.getSalidaUpn();
+
+					}
+					if("unfv".equals(filtro)){
+						Setiqueta="UNFV";
+						LSindice=g4.getSalidaUnfv().size();
+						allIdUsuarios = g4.getSalidaUsuariosUnfv();
+						allConfesion = g4.getSalidaUnfv();
+					}	
+
+					if("unac".equals(filtro)){
+						Setiqueta="UNAC";
+						LSindice=g4.getSalidaUnac().size();
+						allIdUsuarios = g4.getSalidaUsuariosUnac();
+						allConfesion = g4.getSalidaUnac();
+					}
 					
 					String header=" ";
 					String Sauxiliar=" ";
-					String Setiqueta=" ";
 					int Sid=1;
 					if(allConfesion!=null){
 						for(int i=LSindice-1;i>-1;i--){
-							String Pago=" ";
 							Sauxiliar=(String)allConfesion.get(i);
-							//Etiqueta de las confesiones//
-							Setiqueta=(String)allEtiqueta.get(i);
-							//Fin etiqueta de las confesiones//
 							Sid=(int)allIdUsuarios.get(i);
+							
+							//Etiqueta de las confesiones//
+							if(filtro==null || "all".equals(filtro)){
+								Setiqueta=(String)allEtiqueta.get(i);	
+								
+							}
 							if(Sid==1){
 								Pago="No detectable";
 							}else{
 								Pago="Detectable";
 							}
+							
+							//Fin etiqueta de las confesiones//
+							
 							if(i<10){
 								header="Confesion #00";
 							}
@@ -193,7 +270,7 @@
 							if(i>=100 && i<999){
 								header="Confesion #";
 							}
-							out.println("<section>"+"<div class='confes-header'><h2>"+header+""+i+"     <label class='etiquetaName'>Anonimo</label>     <label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>Precio: </span> <span class='precio'>S/ 10.00</span><form action=''><input type='submit' value='Pagar' name='pagar'></form></div>"+"</section>");
+							out.println("<section>"+"<div class='confes-header'><h2>"+header+""+i+"     <label class='etiquetaName'>Anonimo</label>     <label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label>     <label class='etiquetaName'>"+"publicacion"+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>  Precio: </span> <span class='precio'>S/ 10.00</span><form action=''><input type='submit' value='Pagar' name='pagar'></form></div>"+"</section>");
 						}
 						
 					}
@@ -231,46 +308,7 @@
 					</form>
 				</div>
 			</section>
-			<section id="confe2">
-				<div class="confes-header">
-					<h2>Confesión #0002</h2>
-					<hr>
-				</div>
-				<p>Morbi rutrum, turpis at efficitur scelerisque, 
-						nisl mauris auctor metus, et luctus magna eros in nisi. 
-						Etiam vitae finibus magna. Integer molestie tortor et ligula vehicula rhoncus. 
-						Donec felis magna, efficitur ac eros id, consectetur efficitur quam. 
-						Praesent scelerisque urna vel euismod rhoncus. Nulla porttitor lobortis risus, 
-						vitae dapibus velit. Nunc tristique nisi id porttitor finibus.
-						Praesent scelerisque urna vel euismod rhoncus. Nulla porttitor lobortis risus, 
-						vitae dapibus velit. Nunc tristique nisi id porttitor finibus.</p>
-					<div class="confes-footer">
-						<span class="p">Precio: </span> <span class="precio">S/ 5.00</span>
-						<form action="">
-							<input type="submit" value="Pagar" name="pagar">
-						</form>
-					</div>
-			</section>
-			<section id="confe3">
-				<div class="confes-header">
-					<h2>Confesión #0003</h2>
-					<hr>
-				</div>
-				<p>Morbi rutrum, turpis at efficitur scelerisque, 
-						nisl mauris auctor metus, et luctus magna eros in nisi. 
-						Etiam vitae finibus magna. Integer molestie tortor et ligula vehicula rhoncus. 
-						Donec felis magna, efficitur ac eros id, consectetur efficitur quam. 
-						Praesent scelerisque urna vel euismod rhoncus. Nulla porttitor lobortis risus, 
-						vitae dapibus velit. Nunc tristique nisi id porttitor finibus.
-						Praesent scelerisque urna vel euismod rhoncus. Nulla porttitor lobortis risus, 
-						vitae dapibus velit. Nunc tristique nisi id porttitor finibus.</p>
-				<div class="confes-footer">
-					<span class="p">Precio: </span> <span class="precio">S/ 10.00</span>
-					<form action="">
-						<input type="submit" value="Pagar" name="pagar">
-					</form>
-				</div>
-			</section>	
+			
 		</main>
 		<br>
 		<aside class="adicional">

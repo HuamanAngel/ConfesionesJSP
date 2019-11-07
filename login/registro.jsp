@@ -33,11 +33,14 @@
             <select name="Institucion" id="u">
                 <option value="Seleccionar">Seleccionar</option>
                 <option value="UNMSM">UNMSM</option>
+                <option value="PUCP">PUCP</option>
                 <option value="UNI">UNI</option>
                 <option value="UNALM">UNALM</option>
                 <option value="UPC">UPC</option>
                 <option value="UPN">UPN</option>
                 <option value="UNFV">UNFV</option>
+                <option value="UNAC">UNAC</option>
+            
             </select>
             <br/>
             <br />
@@ -56,7 +59,7 @@
             <br>
             <label for="pago">Modalidad de Pago  </label>
             <select name="Modalidad" id="p">
-                <option value="Seleccionar">Seleccionar</option>
+                <option value="Ninguno">Seleccionar</option>
                 <option value="VISA">VISA</option>
                 <option value="PAYPAL">PAYPAL</option>
             </select>

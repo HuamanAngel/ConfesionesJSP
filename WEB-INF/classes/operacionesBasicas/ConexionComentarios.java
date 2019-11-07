@@ -9,10 +9,29 @@ public class ConexionComentarios extends ClaseConexion{
 	private String salida;
 	private ArrayList<Integer> numConfesion;
 	
+	private ArrayList<String> salidaConfesiones;
+	
 	private ArrayList<String> salidaUnmsm;
 	private ArrayList<String> salidaPucp;
-	private ArrayList<String> salidaConfesiones;
+	private ArrayList<String> salidaUni;
+	private ArrayList<String> salidaUnalm;
+	private ArrayList<String> salidaUpc;
+	private ArrayList<String> salidaUpn;
+	private ArrayList<String> salidaUnfv;
+	private ArrayList<String> salidaUnac;	
+	
+	
 	private ArrayList<Integer> salidaUsuarios;
+	private ArrayList<Integer> salidaUsuariosUnmsm;
+	private ArrayList<Integer> salidaUsuariosPucp;
+	private ArrayList<Integer> salidaUsuariosUni;
+	private ArrayList<Integer> salidaUsuariosUnalm;
+	private ArrayList<Integer> salidaUsuariosUpc;
+	private ArrayList<Integer> salidaUsuariosUpn;
+	private ArrayList<Integer> salidaUsuariosUnfv;
+	private ArrayList<Integer> salidaUsuariosUnac;
+
+	
 	private ArrayList<String> salidaInstitucion;
 	private int contadorUnmsm;
 	private int contadorPucp;
@@ -22,10 +41,30 @@ public class ConexionComentarios extends ClaseConexion{
 	public ConexionComentarios() {
 		salida="no hay errores";
 		numConfesion = new ArrayList<Integer>();
+		
+		salidaConfesiones = new ArrayList<String>();
+
+		
 		salidaUnmsm= new ArrayList<String>();
 		salidaPucp= new ArrayList<String>();
-		salidaConfesiones = new ArrayList<String>();
+		salidaUni= new ArrayList<String> ();
+		salidaUnalm = new ArrayList<String> ();
+		salidaUpc = new ArrayList<String> ();
+		salidaUpn = new ArrayList<String> ();
+		salidaUnfv = new ArrayList<String> ();
+		salidaUnac = new ArrayList<String> ();	
+
 		salidaUsuarios = new ArrayList<Integer>();
+		salidaUsuariosUnmsm=new ArrayList<Integer>();
+		salidaUsuariosPucp=new ArrayList<Integer>();
+		salidaUsuariosUni = new ArrayList<Integer> ();
+		salidaUsuariosUnalm = new ArrayList<Integer> ();
+		salidaUsuariosUpc = new ArrayList<Integer> ();
+		salidaUsuariosUpn = new ArrayList<Integer> ();
+		salidaUsuariosUnfv = new ArrayList<Integer> ();
+		salidaUsuariosUnac = new ArrayList<Integer> ();
+
+		
 		salidaInstitucion=new ArrayList<String>();
 		
 		contadorUnmsm=0;
@@ -41,12 +80,62 @@ public class ConexionComentarios extends ClaseConexion{
 	public ArrayList<String> getSalidaPucp(){
 		return salidaPucp;
 	}
+	public ArrayList<String> getSalidaUni(){
+		return salidaUni;
+	}
+	public ArrayList<String> getSalidaUnalm(){
+		return salidaUnalm;
+	}
+
+	public ArrayList<String> getSalidaUpc(){
+		return salidaUpc;
+	}
+	public ArrayList<String> getSalidaUpn(){
+		return salidaUpn;
+	}
+
+	public ArrayList<String> getSalidaUnfv(){
+		return salidaUnfv;
+	}
+	public ArrayList<String> getSalidaUnac(){
+		return salidaUnac;
+	}
+
 	public ArrayList<String> getSalidaConfesiones(){
 		return salidaConfesiones;
 	}
+	
+	
+	
 	public ArrayList<Integer> getSalidaUsuarios(){
 		return salidaUsuarios;
 	}
+	public ArrayList<Integer> getSalidaUsuariosUnmsm(){
+		return salidaUsuariosUnmsm;
+	}
+	public ArrayList<Integer> getSalidaUsuariosPucp(){
+		return salidaUsuariosPucp;
+	}
+	public ArrayList<Integer> getSalidaUsuariosUni(){
+		return salidaUsuariosUni;
+	}
+	public ArrayList<Integer> getSalidaUsuariosUnalm(){
+		return salidaUsuariosUnalm;
+	}
+	public ArrayList<Integer> getSalidaUsuariosUpc(){
+		return salidaUsuariosUpc;
+	}
+	public ArrayList<Integer> getSalidaUsuariosUpn(){
+		return salidaUsuariosUpn;
+	}
+	public ArrayList<Integer> getSalidaUsuariosUnfv(){
+		return salidaUsuariosUnfv;
+	}
+	public ArrayList<Integer> getSalidaUsuariosUnac(){
+		return salidaUsuariosUnac;
+	}
+
+
 	public ArrayList<Integer> getNumConfesion(){
 		return numConfesion;
 	}
@@ -80,7 +169,12 @@ public class ConexionComentarios extends ClaseConexion{
 		contadorUsuarios=0;
 		contadorComentarios=0;
 		contadorConfesion=0;
-		
+		int c=0;
+		int d=0;
+		int e=0;
+		int f=0;
+		int g=0;
+		int h=0;
 		ClaseConexion g1=new ClaseConexion();
 		Connection miConexion=null;
 		try {
@@ -99,15 +193,48 @@ public class ConexionComentarios extends ClaseConexion{
 				contadorComentarios++;
 				if("UNMSM".equals(miResultSet.getString("etiqueta")) || "unmsm".equals(miResultSet.getString("etiqueta")) ) {
 					salidaUnmsm.add(contadorUnmsm,miResultSet.getString("confesion"));
+					salidaUsuariosUnmsm.add(contadorUnmsm,miResultSet.getInt("idUsConf"));
 					contadorUnmsm++;
 				}
 				if("PUCP".equals(miResultSet.getString("etiqueta")) || "PUCP".equals(miResultSet.getString("etiqueta")) ) {
 					salidaPucp.add(contadorPucp,miResultSet.getString("confesion"));
+					salidaUsuariosPucp.add(contadorPucp,miResultSet.getInt("idUsConf"));
 					contadorPucp++;
 				}
+				if("UNI".equals(miResultSet.getString("etiqueta")) || "UNI".equals(miResultSet.getString("etiqueta")) ) {
+					salidaUni.add(c,miResultSet.getString("confesion"));
+					salidaUsuariosUni.add(c,miResultSet.getInt("idUsConf"));
+					c++;
+				}
+				if("UNALM".equals(miResultSet.getString("etiqueta")) || "unalm".equals(miResultSet.getString("etiqueta")) ) {
+					salidaUnalm.add(d,miResultSet.getString("confesion"));
+					salidaUsuariosUnalm.add(d,miResultSet.getInt("idUsConf"));
+					d++;
+				}
+				if("UPC".equals(miResultSet.getString("etiqueta")) || "upc".equals(miResultSet.getString("etiqueta")) ) {
+					salidaUpc.add(e,miResultSet.getString("confesion"));
+					salidaUsuariosUpc.add(e,miResultSet.getInt("idUsConf"));
+					e++;
+				}
+				if("UPN".equals(miResultSet.getString("etiqueta")) || "upc".equals(miResultSet.getString("etiqueta")) ) {
+					salidaUpn.add(f,miResultSet.getString("confesion"));
+					salidaUsuariosUpn.add(f,miResultSet.getInt("idUsConf"));
+					f++;
+				}
+				if("UNFV".equals(miResultSet.getString("etiqueta")) || "unfv".equals(miResultSet.getString("etiqueta")) ) {
+					salidaUnfv.add(g,miResultSet.getString("confesion"));
+					salidaUsuariosUnfv.add(g,miResultSet.getInt("idUsConf"));
+					g++;
+				}
+				if("UNAC".equals(miResultSet.getString("etiqueta")) || "unac".equals(miResultSet.getString("etiqueta")) ) {
+					salidaUnac.add(h,miResultSet.getString("confesion"));
+					salidaUsuariosUnac.add(h,miResultSet.getInt("idUsConf"));
+					h++;
+				}
+			
 			}
 			miConexion.close();
-		} catch (Exception e) {
+		} catch (Exception exceptionA) {
 			salida="No se conecto a la base de datos de COMENTARIOS";
 		}
 	}
