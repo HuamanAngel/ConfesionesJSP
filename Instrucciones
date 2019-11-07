@@ -1,6 +1,16 @@
-Instalar Tomcat
+Instalar Tomcat 9.0
 Entrar a : C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps\
 Clonar el repositorio
-Entrar al servidor de Tomcat : por defecto http://localhost:3306 o http://localhost:puerto o http://IPv4:puerto
+Entrar al servidor de Tomcat : por defecto http://localhost:8080 o http://localhost:puerto o http://IPv4:puerto
 Entrar a ManagerApp
 Luego buscar el repositorio creado y darle click, y listo
+
+Dentro Xampp(activar MySql y/o Apache) crear una cuenta con las siguientes caracteristicas
+usuario : admin
+contraseña : admin
+puerto : 3306
+Se puede conectar mediante MySql con las sgt. valores :
+hostname : 127.0.0.1
+puerto : 3306
+Username : admin
+password : admin
