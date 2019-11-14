@@ -7,6 +7,7 @@ import java.util.*;
 
 public class ConexionComentarios extends ClaseConexion{
 	private String salida;
+	private String evaluarTiempo;
 	private ArrayList<Integer> numConfesion;
 	
 	private ArrayList<String> salidaConfesiones;
@@ -19,7 +20,7 @@ public class ConexionComentarios extends ClaseConexion{
 	private ArrayList<String> salidaUpn;
 	private ArrayList<String> salidaUnfv;
 	private ArrayList<String> salidaUnac;	
-	
+	private ArrayList<String> salidaFecha;
 	
 	private ArrayList<Integer> salidaUsuarios;
 	private ArrayList<Integer> salidaUsuariosUnmsm;
@@ -40,6 +41,7 @@ public class ConexionComentarios extends ClaseConexion{
 	private int contadorConfesion;
 	public ConexionComentarios() {
 		salida="no hay errores";
+		evaluarTiempo="all";
 		numConfesion = new ArrayList<Integer>();
 		
 		salidaConfesiones = new ArrayList<String>();
@@ -53,7 +55,9 @@ public class ConexionComentarios extends ClaseConexion{
 		salidaUpn = new ArrayList<String> ();
 		salidaUnfv = new ArrayList<String> ();
 		salidaUnac = new ArrayList<String> ();	
+		salidaFecha = new ArrayList<String> ();	
 
+		
 		salidaUsuarios = new ArrayList<Integer>();
 		salidaUsuariosUnmsm=new ArrayList<Integer>();
 		salidaUsuariosPucp=new ArrayList<Integer>();
@@ -69,6 +73,9 @@ public class ConexionComentarios extends ClaseConexion{
 		
 		contadorUnmsm=0;
 		contadorPucp=0;
+	}
+	public ArrayList<String> getSalidaFecha(){
+		return salidaFecha;
 	}
 	public ArrayList<String> getSalidaInstitucion(){
 		return salidaInstitucion;
@@ -163,6 +170,10 @@ public class ConexionComentarios extends ClaseConexion{
 	public int getContadorPucp() {
 		return contadorPucp;
 	}
+	
+	public void EvaluarFecha(String evaluar) {
+		evaluarTiempo=evaluar;
+	}
 	public void Conectar() {
 		contadorUnmsm=0;
 		contadorPucp=0;
@@ -177,6 +188,7 @@ public class ConexionComentarios extends ClaseConexion{
 		int h=0;
 		ClaseConexion g1=new ClaseConexion();
 		Connection miConexion=null;
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			miConexion=DriverManager.getConnection(g1.getUrl(),g1.getUsuario(),g1.getContra());
@@ -186,6 +198,9 @@ public class ConexionComentarios extends ClaseConexion{
 				numConfesion.add(contadorComentarios,miResultSet.getInt("idConfesion"));
 				salidaConfesiones.add(contadorConfesion,miResultSet.getString("confesion"));
 				salidaUsuarios.add(contadorUsuarios,miResultSet.getInt("idUsConf"));
+				if(evaluarTiempo.equals("all")  || evaluarTiempo==null) {
+					salidaFecha.add(contadorConfesion,miResultSet.getString("tiempo"));
+				}
 				
 				salidaInstitucion.add(contadorConfesion,miResultSet.getString("etiqueta"));
 				contadorConfesion++;
@@ -194,41 +209,72 @@ public class ConexionComentarios extends ClaseConexion{
 				if("UNMSM".equals(miResultSet.getString("etiqueta")) || "unmsm".equals(miResultSet.getString("etiqueta")) ) {
 					salidaUnmsm.add(contadorUnmsm,miResultSet.getString("confesion"));
 					salidaUsuariosUnmsm.add(contadorUnmsm,miResultSet.getInt("idUsConf"));
+					if(evaluarTiempo.equals("unmsm") || evaluarTiempo.equals("UNMSM")) {
+						salidaFecha.add(contadorUnmsm,miResultSet.getString("tiempo"));
+					}
 					contadorUnmsm++;
+					
+
 				}
+				
 				if("PUCP".equals(miResultSet.getString("etiqueta")) || "PUCP".equals(miResultSet.getString("etiqueta")) ) {
 					salidaPucp.add(contadorPucp,miResultSet.getString("confesion"));
 					salidaUsuariosPucp.add(contadorPucp,miResultSet.getInt("idUsConf"));
+					if(evaluarTiempo.equals("pucp") || evaluarTiempo.equals("PUCP")) {
+						salidaFecha.add(contadorPucp,miResultSet.getString("tiempo"));
+					}
 					contadorPucp++;
+				
 				}
-				if("UNI".equals(miResultSet.getString("etiqueta")) || "UNI".equals(miResultSet.getString("etiqueta")) ) {
+				if("UNI".equals(miResultSet.getString("etiqueta")) || "uni".equals(miResultSet.getString("etiqueta")) ) {
 					salidaUni.add(c,miResultSet.getString("confesion"));
 					salidaUsuariosUni.add(c,miResultSet.getInt("idUsConf"));
+					if(evaluarTiempo.equals("uni") || evaluarTiempo.equals("UNI")) {
+						salidaFecha.add(c,miResultSet.getString("tiempo"));
+					}
+
 					c++;
 				}
 				if("UNALM".equals(miResultSet.getString("etiqueta")) || "unalm".equals(miResultSet.getString("etiqueta")) ) {
 					salidaUnalm.add(d,miResultSet.getString("confesion"));
 					salidaUsuariosUnalm.add(d,miResultSet.getInt("idUsConf"));
+					if(evaluarTiempo.equals("unalm") || evaluarTiempo.equals("UNALM")) {
+						salidaFecha.add(d,miResultSet.getString("tiempo"));
+					}
 					d++;
 				}
 				if("UPC".equals(miResultSet.getString("etiqueta")) || "upc".equals(miResultSet.getString("etiqueta")) ) {
 					salidaUpc.add(e,miResultSet.getString("confesion"));
 					salidaUsuariosUpc.add(e,miResultSet.getInt("idUsConf"));
+					if(evaluarTiempo.equals("upc") || evaluarTiempo.equals("UPC")) {
+						salidaFecha.add(e,miResultSet.getString("tiempo"));
+					}
+
 					e++;
 				}
 				if("UPN".equals(miResultSet.getString("etiqueta")) || "upc".equals(miResultSet.getString("etiqueta")) ) {
 					salidaUpn.add(f,miResultSet.getString("confesion"));
 					salidaUsuariosUpn.add(f,miResultSet.getInt("idUsConf"));
+					if(evaluarTiempo.equals("upn") || evaluarTiempo.equals("UPN")) {
+						salidaFecha.add(f,miResultSet.getString("tiempo"));
+					}
 					f++;
 				}
 				if("UNFV".equals(miResultSet.getString("etiqueta")) || "unfv".equals(miResultSet.getString("etiqueta")) ) {
 					salidaUnfv.add(g,miResultSet.getString("confesion"));
 					salidaUsuariosUnfv.add(g,miResultSet.getInt("idUsConf"));
+					if(evaluarTiempo.equals("unfv") || evaluarTiempo.equals("UNFV")) {
+						salidaFecha.add(g,miResultSet.getString("tiempo"));
+					}
+
 					g++;
 				}
 				if("UNAC".equals(miResultSet.getString("etiqueta")) || "unac".equals(miResultSet.getString("etiqueta")) ) {
 					salidaUnac.add(h,miResultSet.getString("confesion"));
 					salidaUsuariosUnac.add(h,miResultSet.getInt("idUsConf"));
+					if(evaluarTiempo.equals("unac") || evaluarTiempo.equals("UNAC")) {
+						salidaFecha.add(h,miResultSet.getString("tiempo"));
+					}
 					h++;
 				}
 			

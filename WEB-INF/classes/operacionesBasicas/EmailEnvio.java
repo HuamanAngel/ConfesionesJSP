@@ -1,8 +1,12 @@
 package operacionesBasicas;
 
 import java.util.*;
-public class Email{
-	public boolean enviarEmail(String de,Strin clave, String para,String mensaje,String asunto){
+
+
+import java.sql.*;
+
+public class EmailEnvio{
+	public boolean enviarEmail(String de,String clave, String para,String mensaje,String asunto){
 		boolean enviado=false;
 		try{
 			String host="smtp.gmail.com";
@@ -13,9 +17,9 @@ public class Email{
 			prop.put("mail.smtp.password",clave);
 			prop.put("mail.smtp.port",587);
 			prop.put("mail.smtp.auth","true");
-			Session sesion=Session.getDefaultInstance(prop,null);
+//			Session sesion=Session.getDefaultInstance(prop,null);
 			
-			MimeMessage mens=new MimeMessage(sesion);
+	//		MimeMessage mens=new MimeMessage(sesion);
 		}catch(Exception e){
 			
 		}

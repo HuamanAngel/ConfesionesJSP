@@ -1,4 +1,5 @@
 <%@page import="operacionesBasicas.*"%>
+
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*" %>
 <!DOCTYPE html>
@@ -8,6 +9,7 @@
 	
 	<meta http-equiv=”Content-Type” content=”text/html; charset=ISO-8859-1″ />
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" href="css/estiloPopup.css">
 </head>
 <body>
 	<header>
@@ -76,6 +78,7 @@
 			</section>
 		</form>
 		<main class="confesiones">
+	
 			<!--Proceso de session-->
 			
 		
@@ -83,61 +86,74 @@
 				try{
 					
 				
-				int idUsuario=0;
-				int contadorConfesion=0;
-				String etiqueta="UNMSM";
-				ConexionComentarios g2=new ConexionComentarios();
-				g2.Conectar();
-				List<String> infoUser=(List<String>)session.getAttribute("DatosUser");
-				
-				if(infoUser!=null){
-					etiqueta = infoUser.get(4);
-				}
-				
-				try{
-					idUsuario=Integer.parseInt(infoUser.get(0));
-				}catch(Exception e){
-				}
-		
-				contadorConfesion = g2.getContadorPucp()+g2.getContadorUnmsm();
-				
-				ClaseConexion g1=new ClaseConexion();
-	            String DBusuario = g1.getUsuario();
-	            String DBcontra = g1.getContra();
-				Class.forName("com.mysql.jdbc.Driver");
-				Connection miConexion=null;
-				miConexion=DriverManager.getConnection(g1.getUrl(),DBusuario,DBcontra);
-	            Statement miStatement=miConexion.createStatement();
-				
-				boolean Scomparador=false;
-				
-				//IP
-				String IP="0";
-				try {
-					IP=java.net.InetAddress.getLocalHost().getHostAddress();
-				} catch (Exception e) {
+					int idUsuario=0;
+					int contadorConfesion=0;
+					String etiqueta="UNMSM";
+					ConexionComentarios g2=new ConexionComentarios();
+					//Carga la fecha//
+					Fecha localFecha= new Fecha();
+					localFecha.cargarFecha();
 					
-				}
-				//Fin IP
+					//Fin carga la fecha//
+					g2.Conectar();
+					List<String> infoUser=(List<String>)session.getAttribute("DatosUser");
+					
+					if(infoUser!=null){
+						etiqueta = infoUser.get(4);
+					}
+					
+					try{
+						idUsuario=Integer.parseInt(infoUser.get(0));
+					}catch(Exception e){
+					}
+			
+					contadorConfesion = g2.getSalidaConfesiones().size();
+					out.println(contadorConfesion);
+					
+					ClaseConexion g1=new ClaseConexion();
+					String DBusuario = g1.getUsuario();
+					String DBcontra = g1.getContra();
+					Class.forName("com.mysql.jdbc.Driver");
+					Connection miConexion=null;
+					miConexion=DriverManager.getConnection(g1.getUrl(),DBusuario,DBcontra);
+					Statement miStatement=miConexion.createStatement();
+					
+					boolean Scomparador=false;
+					
+					//IP
+					String IP="0";
+					try {
+						IP=java.net.InetAddress.getLocalHost().getHostAddress();
+					} catch (Exception e) {
+						
+					}
+					//Fin IP
+					
+					String elementos=request.getParameter("TAconfesion");
+					
+					if(elementos!=null && elementos!=" "){
+						for(String auxiliar:g2.getSalidaConfesiones()){
+							if(elementos.equals(auxiliar)){
+								Scomparador=true;
+							}
+						}
+						
+						if(Scomparador==false && elementos!=null){
+							contadorConfesion=contadorConfesion+1; 
+			
+							if(infoUser!=null){
+								out.println(contadorConfesion);
+								
+								miStatement.executeUpdate("INSERT INTO confesion VALUE("+contadorConfesion+",'"+elementos+"',"+idUsuario+",'"+etiqueta+"','"+IP+"','"+localFecha.getFechaActual()+"')");	
+								out.println("<label>"+"ERRORORORORORO"+"</label>");
 				
-				String elementos=request.getParameter("TAconfesion");
-				if(elementos!=null && elementos!=" "){
-					for(String auxiliar:g2.getSalidaConfesiones()){
-						if(elementos.equals(auxiliar)){
-							Scomparador=true;
+							}else{
+								idUsuario=1;
+								miStatement.executeUpdate("INSERT INTO confesion VALUE("+contadorConfesion+",'"+elementos+"',"+idUsuario+",'"+etiqueta+"','"+IP+"','"+localFecha.getFechaActual()+"')");	
+							}
+							miConexion.close();
 						}
 					}
-					if(Scomparador==false && elementos!=null){
-			            contadorConfesion++; 
-						if(infoUser!=null){
-							miStatement.executeUpdate("INSERT INTO confesion VALUE("+contadorConfesion+",'"+elementos+"',"+idUsuario+",'"+etiqueta+"','"+IP+"')");	
-						}else{
-							idUsuario=1;
-							miStatement.executeUpdate("INSERT INTO confesion VALUE("+contadorConfesion+",'"+elementos+"',"+idUsuario+",'"+etiqueta+"','"+IP+"')");	
-						}
-			            miConexion.close();
-					}
-				}
 				}catch(Exception e){
 					out.println("<label>"+"No se pudo conectar a la base de datos"+"</label>");
 				}
@@ -168,16 +184,24 @@
 				ArrayList<Integer> allIdUsuarios;
 				
 				String Pago=" ";
-				
-				
+				String filtro =null;
+				String ordenar=null;
 				ConexionComentarios g4=new ConexionComentarios();
+				filtro=request.getParameter("filtro-institucion");
+				ordenar=request.getParameter("");
+				g4.EvaluarFecha(filtro);
+				
+				if(filtro==null){
+					g4.EvaluarFecha("all");
+				}
+				
 				g4.Conectar();
+				//out.println(g4.getSalidaFecha().get(0));
+				
 				allConfesion=g4.getSalidaConfesiones();
 				allEtiqueta=g4.getSalidaInstitucion();
 				allIdUsuarios = g4.getSalidaUsuarios();
 				
-				String filtro = null;
-				filtro=request.getParameter("filtro-institucion");
 					
 				try{
 					int LSindice=allConfesion.size();
@@ -242,12 +266,13 @@
 					
 					String header=" ";
 					String Sauxiliar=" ";
+					String Sfecha=" ";
 					int Sid=1;
 					if(allConfesion!=null){
 						for(int i=LSindice-1;i>-1;i--){
 							Sauxiliar=(String)allConfesion.get(i);
 							Sid=(int)allIdUsuarios.get(i);
-							
+							Sfecha=g4.getSalidaFecha().get(i);
 							//Etiqueta de las confesiones//
 							if(filtro==null || "all".equals(filtro)){
 								Setiqueta=(String)allEtiqueta.get(i);	
@@ -270,7 +295,7 @@
 							if(i>=100 && i<999){
 								header="Confesion #";
 							}
-							out.println("<section>"+"<div class='confes-header'><h2>"+header+""+i+"     <label class='etiquetaName'>Anonimo</label>     <label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label>     <label class='etiquetaName'>"+"publicacion"+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>  Precio: </span> <span class='precio'>S/ 10.00</span><form action=''><input type='submit' value='Pagar' name='pagar'></form></div>"+"</section>");
+							out.println("<section>"+"<div class='confes-header'><h2>"+header+""+i+"     <label class='etiquetaName'>Anonimo</label>     <label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label>     <label class='etiquetaName'>"+Sfecha+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>  Precio: </span> <span class='precio'>S/ 10.00</span><button class='open-popup' id='btnAbrir'>Pagar</button></div>"+"</section>");
 						}
 						
 					}
@@ -279,6 +304,7 @@
 				}
 				
 			%>
+				
 			<!--Fin Cuadro de resultado-->
 			
 			
@@ -323,6 +349,8 @@
 			</figure>
 		</aside>
 	</div>
+
+	
 	<!--
 	<footer>
 		<span>Copyright© 2019 Confe$$ Todos los derechos reservados</span>

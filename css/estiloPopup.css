@@ -1,0 +1,83 @@
+div.overlay{
+    background:rgba(0,0,0,.3);
+    
+	position:fixed;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+	display:flex;
+	align-items:center;
+	justify-content:center;   
+    visibility: hidden;
+}
+
+    div.overlay.active{
+        visibility: visible;
+    }
+
+button.open-popup{
+	background-color: #cc0000;
+	text-decoration: none;
+	font-weight: bold;
+	color: white;
+	cursor: pointer;
+	width: 20%;
+	padding: 4px;
+	border: none;
+	border-radius: 10px;
+	outline: none;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+button.open-popup:hover{
+	background-color: #e6e600;
+	color: #000;
+}
+
+button.open-popup:active {
+	border: none;
+	background-color: #868600;
+}
+
+
+a.cerrar-popup:hover{
+    display:inline-block;
+    background-color: yellow;
+}
+table.tableClass1{
+    font-size: 15px;
+    align-content: center;
+    margin: 0 auto;
+}
+    table.tableClass1 input{
+        align-content: center;
+    }
+
+div.popup{
+    height: 250px;
+    width: 50%;
+    background-color: seashell;
+    transition: 0.1s ease all;
+    color:black;
+    opacity: 1;
+    text-align: right;
+
+}
+   div.popup.active{
+       transition: 1s ease all;
+        opacity: 0;
+    }
+
+@media only screen and (max-width:750px){
+    div.popup{
+        height: 250px;
+        width: 60%;
+    }
+    td.vaca{
+        display: inline-block;
+    }
+	header{
+		position:static;
+	}
+}
