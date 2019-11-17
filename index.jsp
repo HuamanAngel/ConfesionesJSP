@@ -1,5 +1,4 @@
 <%@page import="operacionesBasicas.*"%>
-
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*" %>
 <!DOCTYPE html>
@@ -12,6 +11,7 @@
 	<link rel="stylesheet" href="css/estiloPopup.css">
 </head>
 <body>
+	
 	<header>
 		<div class="topbar">
 			<div class="logo">
@@ -48,6 +48,7 @@
 	</header>
 
 	<div class="cuerpo">
+	
 		<form class="filtro" action="index.jsp" method="post">
 			<section class="instituciones-section">
 				<label for="instituciones">Filtrar por instituciÃ³n: </label>
@@ -77,8 +78,79 @@
 				<input type="submit" name="Aceptar" value="Filtrar">
 			</section>
 		</form>
+		
 		<main class="confesiones">
-	
+		<!-- Popup -->
+		 <div class="overlayConfes" id="overlayIdConfes">
+        
+            <div class="popupConfes" id="popupIdConfes">
+                <a href="#" class="cerrar-popup" id="btnCerrarConfes" onclick="cerrarVentanaConfesar();" ><img src="img/closeIcon.png" style="max-width: 16px; max-height: 16px; padding: 5px;"></a>
+                <h2 align="center">Detalles</h2>
+                <form class="formClass"action="#" method="post">
+                    <table class="tableClass1">
+                        <tr>
+                            <td class="vaca">Precio de la confesion : </td>
+                            <td><input type="text" value="S/15.00"></td>
+                        </tr>
+                        <tr>
+                            <td>El comprador paga : </td>
+                            <td><input type="text" value="S/50"  disabled></td>
+
+                        </tr>
+                        <tr>
+                            <td>Tu recibes</td>
+                            <td><input type="text" value="S/40"  disabled></td> 
+                        </tr>
+
+                        <tr>
+                            <td colspan=2 align="center">¿Esta seguro que desea continuar?</td>
+                        </tr>
+                        <tr>
+                            <td colspan=2 align="center"><input type="checkbox" >Si</td>
+                        </tr>
+                        
+                        <tr>
+                            <td colspan=2 align="center"><input type="submit" value="Pagar"></td>
+                        </tr>
+
+                    </table>
+                </form>  
+            </div>
+        </div>
+		
+        
+        <div class="overlay" id="overlayId">
+        
+            <div class="popup" id="popupId">
+                <a href="#" class="cerrar-popup" id="btnCerrar" onclick="cerrarVentana();" ><img src="img/closeIcon.png" style="max-width: 16px; max-height: 16px; padding: 5px;"></a>
+                <h2 id="infoH2" align="center">Detalles</h2>
+                <form class="formClass"action="#" method="post">
+                    <table class="tableClass1">
+                        <tr>
+                            <td class="vaca">Monto a pagar</td>
+                            <td><input type="text" value="S/15.00"  disabled></td>
+                        </tr>
+                        <tr>
+                            <td>La confesion a revelar es : </td>
+                            <td><input id="numConfesionId" type="text" value="Confesion 1"  disabled></td>
+                        </tr>
+                        <tr>
+                            <td colspan=2 align="center">¿Esta seguro que desea continuar?</td>
+                        </tr>
+                        <tr>
+                            <td colspan=2 align="center"><input type="checkbox" >Si</td>
+                        </tr>
+                        
+                        <tr>
+                            <td colspan=2 align="center"><input type="submit" value="Pagar"></td>
+                        </tr>
+
+                    </table>
+                </form>  
+            </div>
+        </div>
+		<!-- Fin Popup -->
+		
 			<!--Proceso de session-->
 			
 		
@@ -169,7 +241,7 @@
 					<textarea name="TAconfesion" wrap="Hard" placeholder="Confiesate"></textarea>
 					<div class="confes-footer">
 						<!--<span class="p">Precio: </span> <span class="precio">S/ 10.00</span>-->
-							<input type="submit" value="Confesar" name="pagar">
+							<button id="botonIdOpen" class="open-popup" onclick="abrirVentanaConfesar();" >Confesar</button>
 					</div>
 				</form>
 			</section>
@@ -196,7 +268,6 @@
 				}
 				
 				g4.Conectar();
-				//out.println(g4.getSalidaFecha().get(0));
 				
 				allConfesion=g4.getSalidaConfesiones();
 				allEtiqueta=g4.getSalidaInstitucion();
@@ -295,7 +366,7 @@
 							if(i>=100 && i<999){
 								header="Confesion #";
 							}
-							out.println("<section>"+"<div class='confes-header'><h2>"+header+""+i+"     <label class='etiquetaName'>Anonimo</label>     <label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label>     <label class='etiquetaName'>"+Sfecha+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>  Precio: </span> <span class='precio'>S/ 10.00</span><button class='open-popup' id='btnAbrir'>Pagar</button></div>"+"</section>");
+							out.println("<section>"+"<div class='confes-header'><h2>"+header+""+i+"     <label class='etiquetaName'>Anonimo</label>     <label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label>     <label class='etiquetaName'>"+Sfecha+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>  Precio: </span> <span class='precio'>S/ 10.00</span><button id='botonIdOpen' class='open-popup' onclick='abrirVentana();' >Pagar</button></div>"+"</section>");
 						}
 						
 					}
@@ -306,7 +377,6 @@
 			%>
 				
 			<!--Fin Cuadro de resultado-->
-			
 			
 			
 			
@@ -350,6 +420,7 @@
 		</aside>
 	</div>
 
+	<script src="js/popup.js"></script>
 	
 	<!--
 	<footer>
