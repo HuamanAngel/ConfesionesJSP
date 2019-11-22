@@ -1,6 +1,7 @@
 <%@page import="operacionesBasicas.*"%>
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*" %>
+<%@page import="java.text.DecimalFormat" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,6 +63,8 @@
 					<option value="upn">UPN</option>
 					<option value="unfv">UNFV</option>
 					<option value="unac">UNAC</option>
+					<option value="unac">Buak</option>
+
 				</select>
 			</section>
 
@@ -84,36 +87,41 @@
 		 <div class="overlayConfes" id="overlayIdConfes">
         
             <div class="popupConfes" id="popupIdConfes">
-                <a href="#" class="cerrar-popup" id="btnCerrarConfes" onclick="cerrarVentanaConfesar();" ><img src="img/closeIcon.png" style="max-width: 16px; max-height: 16px; padding: 5px;"></a>
-                <h2 align="center">Detalles</h2>
-                <form class="formClass"action="#" method="post">
-                    <table class="tableClass1">
+                <a href="#" align="center" class="cerrar-popup" id="btnCerrarConfes" onclick="cerrarVentanaConfesar();" ><img class="classIcon" src="img/closeIcon.png" style="max-width: 16px; max-height: 16px; padding: 5px;"></a>
+                <h2 align="center" >Informacion</h2>
+                <form name="confesarInfo" align="right"class="formClass"action="#" method="post">
+					<input type="hidden" name="TAconfesion" id="idTA">
+					<div class="tablaClase">
+					<table class="tableClass2">
                         <tr>
-                            <td class="vaca">Precio de la confesion : </td>
-                            <td><input type="text" value="S/15.00"></td>
+                            <td class="vaca">Precio de la confesion : S/</td>
+                            <td><input name="precio1" type="text" value="10.00" onblur="colocarCosto();"></td>
                         </tr>
                         <tr>
-                            <td>El comprador paga : </td>
-                            <td><input type="text" value="S/50"  disabled></td>
+                            <td>El comprador paga : S/</td>
+                            <td><input name="precio2" type="text" value="11.00"  disabled></td>
 
                         </tr>
                         <tr>
-                            <td>Tu recibes</td>
-                            <td><input type="text" value="S/40"  disabled></td> 
+                            <td>Se retiene : S/</td>
+                            <td><input name="precio3" type="text" value="1.00"  disabled></td> 
                         </tr>
 
                         <tr>
-                            <td colspan=2 align="center">¿Esta seguro que desea continuar?</td>
+                            <td colspan=2 align="center">Esta seguro que desea continuar?</td>
                         </tr>
                         <tr>
                             <td colspan=2 align="center"><input type="checkbox" >Si</td>
                         </tr>
-                        
                         <tr>
-                            <td colspan=2 align="center"><input type="submit" value="Pagar"></td>
+                            <td colspan=2 align="center" name="informacionP"><p id='textoParrafo'></p></td>
+                        </tr>
+                        <tr>
+                            <td colspan=2 align="center"><input type="submit" value="Confesar" name="confesarSubmit"  disabled></td>
                         </tr>
 
                     </table>
+					</div>
                 </form>  
             </div>
         </div>
@@ -122,7 +130,7 @@
         <div class="overlay" id="overlayId">
         
             <div class="popup" id="popupId">
-                <a href="#" class="cerrar-popup" id="btnCerrar" onclick="cerrarVentana();" ><img src="img/closeIcon.png" style="max-width: 16px; max-height: 16px; padding: 5px;"></a>
+                <a href="#" class="cerrar-popup" id="btnCerrar" onclick="cerrarVentana();" ><img  class="classIcon" src="img/closeIcon.png" ></a>
                 <h2 id="infoH2" align="center">Detalles</h2>
                 <form class="formClass"action="#" method="post">
                     <table class="tableClass1">
@@ -135,7 +143,7 @@
                             <td><input id="numConfesionId" type="text" value="Confesion 1"  disabled></td>
                         </tr>
                         <tr>
-                            <td colspan=2 align="center">¿Esta seguro que desea continuar?</td>
+                            <td colspan=2 align="center">ï¿½Esta seguro que desea continuar?</td>
                         </tr>
                         <tr>
                             <td colspan=2 align="center"><input type="checkbox" >Si</td>
@@ -155,9 +163,16 @@
 			
 		
 			<%
-				try{
-					
-				
+					String gato=request.getParameter("precio1");
+					DecimalFormat formato1 = new DecimalFormat("#.00");
+					float precio=(float)0.0;
+					if(gato!=null){
+						precio=Float.parseFloat(gato);
+						precio=precio*110/100;
+						gato=formato1.format(precio);
+						gato=gato.replace(",", ".");
+						precio=(float)Float.parseFloat(gato);
+					}
 					int idUsuario=0;
 					int contadorConfesion=0;
 					String etiqueta="UNMSM";
@@ -180,7 +195,6 @@
 					}
 			
 					contadorConfesion = g2.getSalidaConfesiones().size();
-					out.println(contadorConfesion);
 					
 					ClaseConexion g1=new ClaseConexion();
 					String DBusuario = g1.getUsuario();
@@ -214,21 +228,15 @@
 							contadorConfesion=contadorConfesion+1; 
 			
 							if(infoUser!=null){
-								out.println(contadorConfesion);
-								
-								miStatement.executeUpdate("INSERT INTO confesion VALUE("+contadorConfesion+",'"+elementos+"',"+idUsuario+",'"+etiqueta+"','"+IP+"','"+localFecha.getFechaActual()+"')");	
-								out.println("<label>"+"ERRORORORORORO"+"</label>");
+								miStatement.executeUpdate("INSERT INTO confesion VALUE("+contadorConfesion+",'"+elementos+"',"+idUsuario+",'"+etiqueta+"','"+IP+"','"+localFecha.getFechaActual()+"',"+precio+")");	
 				
 							}else{
-								idUsuario=1;
-								miStatement.executeUpdate("INSERT INTO confesion VALUE("+contadorConfesion+",'"+elementos+"',"+idUsuario+",'"+etiqueta+"','"+IP+"','"+localFecha.getFechaActual()+"')");	
+								//idUsuario=1;
+								//miStatement.executeUpdate("INSERT INTO confesion VALUE("+contadorConfesion+",'"+elementos+"',"+idUsuario+",'"+etiqueta+"','"+IP+"','"+localFecha.getFechaActual()+"',"+precio+")");	
 							}
 							miConexion.close();
 						}
 					}
-				}catch(Exception e){
-					out.println("<label>"+"No se pudo conectar a la base de datos"+"</label>");
-				}
 			%>
 			<!--Proceso de session-->
 			<!--Cuadro de texto mejorado-->
@@ -237,13 +245,16 @@
 					<h2>Confesion   <% List<String> info=(List<String>)session.getAttribute("DatosUser");if(info==null){out.println("<label class='etiquetaName'>Anonimo</label>"+ "     <label class='etiquetaName'>UNMSM</label>     "+"<label class='etiquetaName'>No detectable</label>" );}else{out.println("<label class='etiquetaName'>"+info.get(5) + "</label>     <label class='etiquetaName'>" + info.get(4)+"</label>"+"     <label class='etiquetaName'>Detectable</label>");}%></h2>
 					<hr>
 				</div>
-				<form action="index.jsp" method="post">
-					<textarea name="TAconfesion" wrap="Hard" placeholder="Confiesate"></textarea>
-					<div class="confes-footer">
-						<!--<span class="p">Precio: </span> <span class="precio">S/ 10.00</span>-->
-							<button id="botonIdOpen" class="open-popup" onclick="abrirVentanaConfesar();" >Confesar</button>
-					</div>
+
+				<form action="index.jsp" name="orley" method="post">
+					<textarea name="TAconfesionAUX" wrap="Hard" placeholder="Confiesate" ></textarea>
 				</form>
+				<div class="confes-footer">
+				<!--<span class="p">Precio: </span> <span class="precio">S/ 10.00</span>-->
+				<button style="margin-right:10px;" id="botonIdOpen" class="open-popup" onclick="abrirVentanaConfesar();" >Confesar</button>
+
+				</div>
+
 			</section>
 			
 			<!--Fin Cuadro de texto mejorado-->
@@ -254,7 +265,8 @@
 				ArrayList<String> allConfesion;
 				ArrayList<String> allEtiqueta;
 				ArrayList<Integer> allIdUsuarios;
-				
+				ArrayList<Float> allPago;
+			
 				String Pago=" ";
 				String filtro =null;
 				String ordenar=null;
@@ -272,6 +284,7 @@
 				allConfesion=g4.getSalidaConfesiones();
 				allEtiqueta=g4.getSalidaInstitucion();
 				allIdUsuarios = g4.getSalidaUsuarios();
+				allPago = g4.getSalidaPago();
 				
 					
 				try{
@@ -281,18 +294,23 @@
 						LSindice=g4.getSalidaConfesiones().size();
 						allIdUsuarios = g4.getSalidaUsuarios();						
 						allConfesion = g4.getSalidaConfesiones();
+						allPago = g4.getSalidaPago();
 					}
 					if("unmsm".equals(filtro)){
 						Setiqueta="UNMSM";
 						LSindice=g4.getSalidaUnmsm().size();
 						allIdUsuarios = g4.getSalidaUsuariosUnmsm();
 						allConfesion = g4.getSalidaUnmsm();
+						allPago = g4.getSalidaPago();
+
 					}
 					if("pucp".equals(filtro)){
 						Setiqueta="PUCP";
 						LSindice=g4.getSalidaPucp().size();
 						allIdUsuarios = g4.getSalidaUsuariosPucp();
 						allConfesion = g4.getSalidaPucp();
+						allPago = g4.getSalidaPago();
+
 					}
 
 					if("uni".equals(filtro)){
@@ -300,12 +318,16 @@
 						LSindice=g4.getSalidaUni().size();
 						allIdUsuarios = g4.getSalidaUsuariosUni();
 						allConfesion = g4.getSalidaUni();
+						allPago = g4.getSalidaPago();
+
 					}
 					if("unalm".equals(filtro)){
 						Setiqueta="UNALM";
 						LSindice=g4.getSalidaUnalm().size();
 						allIdUsuarios = g4.getSalidaUsuariosUnalm();
 						allConfesion = g4.getSalidaUnalm();
+						allPago = g4.getSalidaPago();
+
 					}
 
 					if("upc".equals(filtro)){
@@ -313,12 +335,15 @@
 						LSindice=g4.getSalidaUpc().size();
 						allIdUsuarios = g4.getSalidaUsuariosUpc();
 						allConfesion = g4.getSalidaUpc();
+						allPago = g4.getSalidaPago();
+
 					}
 					if("upn".equals(filtro)){
 						Setiqueta="UPN";
 						LSindice=g4.getSalidaUpn().size();
 						allIdUsuarios = g4.getSalidaUsuariosUpn();
 						allConfesion = g4.getSalidaUpn();
+						allPago = g4.getSalidaPago();
 
 					}
 					if("unfv".equals(filtro)){
@@ -326,6 +351,8 @@
 						LSindice=g4.getSalidaUnfv().size();
 						allIdUsuarios = g4.getSalidaUsuariosUnfv();
 						allConfesion = g4.getSalidaUnfv();
+						allPago = g4.getSalidaPago();
+
 					}	
 
 					if("unac".equals(filtro)){
@@ -333,14 +360,19 @@
 						LSindice=g4.getSalidaUnac().size();
 						allIdUsuarios = g4.getSalidaUsuariosUnac();
 						allConfesion = g4.getSalidaUnac();
+						allPago = g4.getSalidaPago();
+
 					}
 					
 					String header=" ";
 					String Sauxiliar=" ";
 					String Sfecha=" ";
+					float Fpago=0;
 					int Sid=1;
 					if(allConfesion!=null){
 						for(int i=LSindice-1;i>-1;i--){
+							Fpago=allPago.get(i);
+
 							Sauxiliar=(String)allConfesion.get(i);
 							Sid=(int)allIdUsuarios.get(i);
 							Sfecha=g4.getSalidaFecha().get(i);
@@ -366,7 +398,7 @@
 							if(i>=100 && i<999){
 								header="Confesion #";
 							}
-							out.println("<section>"+"<div class='confes-header'><h2>"+header+""+i+"     <label class='etiquetaName'>Anonimo</label>     <label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label>     <label class='etiquetaName'>"+Sfecha+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>  Precio: </span> <span class='precio'>S/ 10.00</span><button id='botonIdOpen' class='open-popup' onclick='abrirVentana();' >Pagar</button></div>"+"</section>");
+							out.println("<section>"+"<div class='confes-header'><h2>"+header+""+i+"     <label class='etiquetaName'>Anonimo</label>     <label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label>     <label class='etiquetaName'>"+Sfecha+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>  Precio: </span> <span class='precio'>S/ "+Fpago+"</span><button id='botonIdOpen' class='open-popup' onclick='abrirVentana();' >Pagar</button></div>"+"</section>");
 						}
 						
 					}

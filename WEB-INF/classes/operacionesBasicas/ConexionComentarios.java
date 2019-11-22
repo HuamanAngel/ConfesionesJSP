@@ -32,8 +32,9 @@ public class ConexionComentarios extends ClaseConexion{
 	private ArrayList<Integer> salidaUsuariosUnfv;
 	private ArrayList<Integer> salidaUsuariosUnac;
 
-	
 	private ArrayList<String> salidaInstitucion;
+	
+	private ArrayList<Float> salidaPago;
 	private int contadorUnmsm;
 	private int contadorPucp;
 	private int contadorUsuarios;
@@ -70,9 +71,12 @@ public class ConexionComentarios extends ClaseConexion{
 
 		
 		salidaInstitucion=new ArrayList<String>();
-		
+		salidaPago=new ArrayList<Float>();
 		contadorUnmsm=0;
 		contadorPucp=0;
+	}
+	public ArrayList<Float> getSalidaPago(){
+		return salidaPago;
 	}
 	public ArrayList<String> getSalidaFecha(){
 		return salidaFecha;
@@ -200,6 +204,7 @@ public class ConexionComentarios extends ClaseConexion{
 				salidaUsuarios.add(contadorUsuarios,miResultSet.getInt("idUsConf"));
 				if(evaluarTiempo.equals("all")  || evaluarTiempo==null) {
 					salidaFecha.add(contadorConfesion,miResultSet.getString("tiempo"));
+					salidaPago.add(contadorConfesion,miResultSet.getFloat("precio"));
 				}
 				
 				salidaInstitucion.add(contadorConfesion,miResultSet.getString("etiqueta"));

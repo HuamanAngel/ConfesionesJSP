@@ -22,11 +22,12 @@ CREATE TABLE confesion(
     etiqueta VARCHAR(20),
     direccionIp VARCHAR(22),
 	tiempo TIMESTAMP,
+	precio FLOAT(5,2),
     PRIMARY KEY(idConfesion),
     KEY idUsConf(idUsConf)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
-INSERT INTO confesion VALUE(1,'Mi primera confesion es la sgt:',1,'unmsm',3434,'2019-11-13 10:10:10');
+INSERT INTO confesion VALUE(1,'Mi primera confesion es la sgt:',1,'unmsm',3434,'2019-11-13 10:10:10',12.00);
 
 ALTER TABLE Confesion
 	ADD CONSTRAINT Confesion_ibfk_1 FOREIGN KEY (idUsConf) REFERENCES Usuario (idUsuario) ON DELETE CASCADE ON UPDATE CASCADE;

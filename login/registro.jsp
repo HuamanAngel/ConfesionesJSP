@@ -25,10 +25,11 @@
             <input type="text" name="apellidoReal" id="nombre">
             <br/>
             
-            <input type="radio" name="sexo" value="F">Femenino<br>
-			<input type="radio" name="sexo" value="M">Masculino<br>
-				
-            <br>
+            <label for="u" class="textLabel">Femenino   </label>
+            <label for="u" class="textLabel1">Masculino</label>
+			<input type="radio" class="entradaRadio1" name="sexo" value="M">
+			<input type="radio" class="entradaRadio2" name="sexo" value="F">
+			
             <label for="u">Universidad / Instituto  </label>
             <select name="Institucion" id="u">
                 <option value="Seleccionar">Seleccionar</option>
@@ -47,13 +48,13 @@
             <label for="usuario">Nombre de Usuario</label>
             <input type="text" name="Usuario" id="usuario">
             <br>
-            <label for="contraseña">Contraseña</label>
+            <label for="contraseña">Password</label>
             <input type="password" name="Contra" id="contraseña">
             <br>
-            <label for="confirmacion">Confirmación de Contraseña</label>
+            <label for="confirmacion">Confirmacion de Password</label>
             <input type="password" name="" id="confirmacion">
             <br>
-            <label for="telefono">Número de Teléfono</label>
+            <label for="telefono">Numero de Telefono</label>
             <input type="text" name="Telefono" id="telefono">
             <br>
             <br>
@@ -65,7 +66,7 @@
             </select>
             <br>
             <br>
-            <input type="checkbox" name="" id="">Acepto los términos y condiciones
+            <input type="checkbox" name="" id="">Acepto los terminos y condiciones
             <br/>
             <br>
             <input type="submit" value="Registrar">

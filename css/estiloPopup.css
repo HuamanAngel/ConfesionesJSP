@@ -10,22 +10,39 @@ div.overlayConfes{
 	align-items:center;
 	justify-content:center;   
     visibility: hidden;
+    
 }
 
     div.overlayConfes.active{
         visibility: visible;
     }
 div.popupConfes{
-    height: 250px;
+    height: 300px;
     width: 50%;
+    
     background-color: seashell;
+    color: red;
     transition: 0.1s ease all;
     opacity: 0;
-    text-align: right;
 }
     div.popupConfes.active{
         transition: 1s ease all;
         opacity: 1;
+        
+    }
+    
+
+table.tableClass2{
+    font-size: 18px;
+    width: 200%;
+    color:black;
+    position: relative;
+    display: inherit;
+    right: -25%;
+    align-text:center;
+}
+    table.tableClass2 input{
+        align-content: center;
     }
     
 /*Fin para el boton confesar*/
@@ -51,10 +68,21 @@ h2#infoH2{
 	color:red;
 	font-size:20px;
 }
+a.cerrar-popup{
 
-a.cerrar-popup:hover{
-    display:inline-block;
-    background-color: yellow;
+}
+
+    a.cerrar-popup:hover{
+        display:inline-block;
+        background-color: yellow;
+        position: relative;
+
+    }
+img.classIcon{
+    max-width: 16px; 
+    max-height: 16px;
+    padding: 5px;
+
 }
 table.tableClass1{
     font-size: 18px;
@@ -72,7 +100,7 @@ div.popup{
     background-color: seashell;
     transition: 0.1s ease all;
     opacity: 0;
-    text-align: right;
+    text-align: center;
     font-color:black;
 
 }
@@ -80,7 +108,7 @@ div.popup{
        transition: 1s ease all;
         opacity: 1;
     }
-    
+
     
 button.open-popup {
 	font-weight: bold;
@@ -109,6 +137,13 @@ button.open-popup:hover {
     }
     td.vaca{
         display: inline-block;
+    }
+    div.popupConfes{
+        height: 300px;
+        width: 60%;
+    }
+    table.tableClass2{
+        right: -10%;
     }
 
 }
