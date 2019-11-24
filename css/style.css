@@ -225,7 +225,7 @@ body {
 	margin: 0px 30px 0px 0px;
 }
 
-.precio {
+.precio, span.Fpagoprecio {
 	border: none;
 	background-color: #cc0000;
 	color: #fff;
@@ -322,7 +322,7 @@ footer a {
 }
 
 /*Label*/
-label.etiquetaName{
+label.etiquetaName, label.etiquetaName2{
 	
 	background-color:green;
 	font-size:10px;

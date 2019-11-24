@@ -216,6 +216,8 @@ public class ConexionComentarios extends ClaseConexion{
 					salidaUsuariosUnmsm.add(contadorUnmsm,miResultSet.getInt("idUsConf"));
 					if(evaluarTiempo.equals("unmsm") || evaluarTiempo.equals("UNMSM")) {
 						salidaFecha.add(contadorUnmsm,miResultSet.getString("tiempo"));
+						salidaPago.add(contadorUnmsm,miResultSet.getFloat("precio"));
+
 					}
 					contadorUnmsm++;
 					
@@ -227,6 +229,8 @@ public class ConexionComentarios extends ClaseConexion{
 					salidaUsuariosPucp.add(contadorPucp,miResultSet.getInt("idUsConf"));
 					if(evaluarTiempo.equals("pucp") || evaluarTiempo.equals("PUCP")) {
 						salidaFecha.add(contadorPucp,miResultSet.getString("tiempo"));
+						salidaPago.add(contadorPucp,miResultSet.getFloat("precio"));
+
 					}
 					contadorPucp++;
 				
@@ -236,6 +240,8 @@ public class ConexionComentarios extends ClaseConexion{
 					salidaUsuariosUni.add(c,miResultSet.getInt("idUsConf"));
 					if(evaluarTiempo.equals("uni") || evaluarTiempo.equals("UNI")) {
 						salidaFecha.add(c,miResultSet.getString("tiempo"));
+						salidaPago.add(c,miResultSet.getFloat("precio"));
+
 					}
 
 					c++;
@@ -245,6 +251,8 @@ public class ConexionComentarios extends ClaseConexion{
 					salidaUsuariosUnalm.add(d,miResultSet.getInt("idUsConf"));
 					if(evaluarTiempo.equals("unalm") || evaluarTiempo.equals("UNALM")) {
 						salidaFecha.add(d,miResultSet.getString("tiempo"));
+						salidaPago.add(d,miResultSet.getFloat("precio"));
+
 					}
 					d++;
 				}
@@ -253,6 +261,8 @@ public class ConexionComentarios extends ClaseConexion{
 					salidaUsuariosUpc.add(e,miResultSet.getInt("idUsConf"));
 					if(evaluarTiempo.equals("upc") || evaluarTiempo.equals("UPC")) {
 						salidaFecha.add(e,miResultSet.getString("tiempo"));
+						salidaPago.add(e,miResultSet.getFloat("precio"));
+
 					}
 
 					e++;
@@ -262,6 +272,8 @@ public class ConexionComentarios extends ClaseConexion{
 					salidaUsuariosUpn.add(f,miResultSet.getInt("idUsConf"));
 					if(evaluarTiempo.equals("upn") || evaluarTiempo.equals("UPN")) {
 						salidaFecha.add(f,miResultSet.getString("tiempo"));
+						salidaPago.add(f,miResultSet.getFloat("precio"));
+
 					}
 					f++;
 				}
@@ -270,6 +282,8 @@ public class ConexionComentarios extends ClaseConexion{
 					salidaUsuariosUnfv.add(g,miResultSet.getInt("idUsConf"));
 					if(evaluarTiempo.equals("unfv") || evaluarTiempo.equals("UNFV")) {
 						salidaFecha.add(g,miResultSet.getString("tiempo"));
+						salidaPago.add(g,miResultSet.getFloat("precio"));
+
 					}
 
 					g++;
@@ -279,6 +293,8 @@ public class ConexionComentarios extends ClaseConexion{
 					salidaUsuariosUnac.add(h,miResultSet.getInt("idUsConf"));
 					if(evaluarTiempo.equals("unac") || evaluarTiempo.equals("UNAC")) {
 						salidaFecha.add(h,miResultSet.getString("tiempo"));
+						salidaPago.add(h,miResultSet.getFloat("precio"));
+
 					}
 					h++;
 				}

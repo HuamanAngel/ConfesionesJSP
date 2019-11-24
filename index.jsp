@@ -10,6 +10,8 @@
 	<meta http-equiv=”Content-Type” content=”text/html; charset=ISO-8859-1″ />
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" href="css/estiloPopup.css">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+	
 </head>
 <body>
 	
@@ -63,8 +65,6 @@
 					<option value="upn">UPN</option>
 					<option value="unfv">UNFV</option>
 					<option value="unac">UNAC</option>
-					<option value="unac">Buak</option>
-
 				</select>
 			</section>
 
@@ -126,37 +126,6 @@
             </div>
         </div>
 		
-        
-        <div class="overlay" id="overlayId">
-        
-            <div class="popup" id="popupId">
-                <a href="#" class="cerrar-popup" id="btnCerrar" onclick="cerrarVentana();" ><img  class="classIcon" src="img/closeIcon.png" ></a>
-                <h2 id="infoH2" align="center">Detalles</h2>
-                <form class="formClass"action="#" method="post">
-                    <table class="tableClass1">
-                        <tr>
-                            <td class="vaca">Monto a pagar</td>
-                            <td><input type="text" value="S/15.00"  disabled></td>
-                        </tr>
-                        <tr>
-                            <td>La confesion a revelar es : </td>
-                            <td><input id="numConfesionId" type="text" value="Confesion 1"  disabled></td>
-                        </tr>
-                        <tr>
-                            <td colspan=2 align="center">�Esta seguro que desea continuar?</td>
-                        </tr>
-                        <tr>
-                            <td colspan=2 align="center"><input type="checkbox" >Si</td>
-                        </tr>
-                        
-                        <tr>
-                            <td colspan=2 align="center"><input type="submit" value="Pagar"></td>
-                        </tr>
-
-                    </table>
-                </form>  
-            </div>
-        </div>
 		<!-- Fin Popup -->
 		
 			<!--Proceso de session-->
@@ -251,7 +220,7 @@
 				</form>
 				<div class="confes-footer">
 				<!--<span class="p">Precio: </span> <span class="precio">S/ 10.00</span>-->
-				<button style="margin-right:10px;" id="botonIdOpen" class="open-popup" onclick="abrirVentanaConfesar();" >Confesar</button>
+				<button style="margin-right:10px;" id="botonIdOpen" class="open-popup2" onclick="abrirVentanaConfesar();" >Confesar</button>
 
 				</div>
 
@@ -370,6 +339,7 @@
 					float Fpago=0;
 					int Sid=1;
 					if(allConfesion!=null){
+						int NombreValor=0;
 						for(int i=LSindice-1;i>-1;i--){
 							Fpago=allPago.get(i);
 
@@ -398,7 +368,8 @@
 							if(i>=100 && i<999){
 								header="Confesion #";
 							}
-							out.println("<section>"+"<div class='confes-header'><h2>"+header+""+i+"     <label class='etiquetaName'>Anonimo</label>     <label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label>     <label class='etiquetaName'>"+Sfecha+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>  Precio: </span> <span class='precio'>S/ "+Fpago+"</span><button id='botonIdOpen' class='open-popup' onclick='abrirVentana();' >Pagar</button></div>"+"</section>");
+							NombreValor++;
+							out.println("<section>"+"<div class='confes-header'><h2><p class='classObtenerConfes'>"+header+""+i+"</p>     <label class='etiquetaName'>Anonimo</label>     <label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label>     <label class='etiquetaName'>"+Sfecha+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>  Precio: </span> <span class='Fpagoprecio'>S/ "+Fpago+"</span><button id='"+i+"' class='open-popup' >Pagar</button></div>"+"</section>");
 						}
 						
 					}
@@ -407,6 +378,37 @@
 				}
 				
 			%>
+		 <div class="overlay" id="overlayId">
+        
+            <div class="popup" id="popupId">
+                <a href="#" class="cerrar-popup" id="btnCerrar" onclick="cerrarVentana();" ><img  class="classIcon" src="img/closeIcon.png" ></a>
+                <h2 id="infoH2" align="center">Detalles</h2>
+                <form class="formClass"action="#" method="post" name="formPago2">
+                    <table class="tableClass1">
+                        <tr>
+                            <td class="vaca">Monto a pagar</td>
+                            <td><input type="text" value="S/15.00" name="inputValor2" disabled></td>
+                        </tr>
+                        <tr>
+                            <td>La confesion a revelar es : </td>
+                            <td><input id="numConfesionId" type="text" value="Confesion 1" name="inputPago2"  disabled></td>
+                        </tr>
+                        <tr>
+                            <td colspan=2 align="center">�Esta seguro que desea continuar?</td>
+                        </tr>
+                        <tr>
+                            <td colspan=2 align="center"><input type="checkbox" >Si</td>
+                        </tr>
+                        
+                        <tr>
+                            <td colspan=2 align="center"><input type="submit" value="Pagar"></td>
+                        </tr>
+
+                    </table>
+                </form>  
+            </div>
+        </div>
+			
 				
 			<!--Fin Cuadro de resultado-->
 			

@@ -110,7 +110,7 @@ div.popup{
     }
 
     
-button.open-popup {
+button.open-popup, button.open-popup2{
 	font-weight: bold;
 	color: #fff;
 	background-color: #009220;
@@ -125,10 +125,13 @@ button.open-popup {
 	display: inline-block;
 }
 
-button.open-popup:hover {
+button.open-popup:hover, button.open-popup2:hover {
 	background-color: #e6e600;
 	color: #000;
 }
+
+
+
 
 @media only screen and (max-width:750px){
     div.popup{

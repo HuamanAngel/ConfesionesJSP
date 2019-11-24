@@ -17,7 +17,7 @@ INSERT INTO usuario VALUE(1,'Anonimo','Anonimo','unmsm','HF','Anonimo','aBzJdea'
 
 CREATE TABLE confesion(
 	idConfesion int NOT NULL AUTO_INCREMENT,
-	confesion varchar(141) NOT NULL,
+	confesion varchar(400) NOT NULL,
 	idUsConf int NOT NULL,
     etiqueta VARCHAR(20),
     direccionIp VARCHAR(22),
