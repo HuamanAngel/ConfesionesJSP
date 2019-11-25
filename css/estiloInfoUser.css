@@ -1,0 +1,171 @@
+body{
+
+    background-color: rgb(25, 25, 25);
+    color: seashell;
+}
+
+body main.contentPrincipal{
+    background-color: seashell;
+    height: 80%;
+    width: 60%;
+    margin: auto;
+    color: black;
+    text-align: center;
+}
+
+
+.topContent{
+    width: 80%;
+    margin: auto;
+    
+}
+
+.menuInformacion{
+    list-style: none;
+    align-items: center;
+}
+
+.menuInformacion li:nth-child(1){
+    
+    display: inline-block;
+    padding:10px 10px 10px 15px;
+    border-radius: 0px 0px 0px 0px;
+    -moz-border-radius: 0px 0px 0px 0px;
+    -webkit-border-radius: 0px 0px 0px 0px;
+    background-color: rgb(34, 177, 76);
+}
+.menuInformacion li:nth-child(2){
+    margin: auto;
+    display: inline-block;
+    padding:10px 10px 10px 15px;
+    border-radius: 0px 0px 0px 0px;
+    -moz-border-radius: 0px 0px 0px 0px;
+    -webkit-border-radius: 0px 0px 0px 0px;
+    border: 1px solid rgb(195, 195, 195);
+    background-color: rgb(34, 177, 76);
+
+}
+.menuInformacion li:nth-child(3){
+    margin: auto;
+    display: inline-block;
+    padding:10px 10px 10px 15px;
+    border-radius: 0px 0px 0px 0px;
+    -moz-border-radius: 0px 0px 0px 0px;
+    -webkit-border-radius: 0px 0px 0px 0px;
+    border: 1px solid rgb(195, 195, 195);
+    background-color: rgb(34, 177, 76);
+
+}
+    .menuInformacion li:nth-child(3):hover,li:nth-child(2):hover,li:nth-child(1):hover{
+        background-color: yellow;
+        cursor: pointer;
+
+    }
+
+form.formInformacion{
+    width: 80%;
+    margin: auto;
+    border-radius: 20px 20px 20px 20px;
+    -moz-border-radius: 20px 20px 20px 20px;
+    -webkit-border-radius: 20px 20px 20px 20px;
+    padding: 10px 0px 10px 10px;
+}
+
+form.formInformacion>label{
+    width: 20%;
+    display: inline-block;
+    text-align: right;
+}
+
+form.formInformacion>input{
+    display: inline-block;
+}
+/*Pantalla 1*/
+div.botContent{
+    display: inline;
+}
+    div.botContent.active{
+        display:none ;
+    }
+/*Pantalla 2*/
+div.botContent2{
+
+    display: none;
+}
+    div.botContent2.active{
+        display: inline;
+    }
+.parrafoDeConfesion{
+    width: 80%;
+    margin: auto;
+    text-align: left;
+}
+.opcionesConfesion,.opcionesConfesionConsulta {
+
+    margin: auto;
+    display: inline-block;
+    background-color: rgb(112, 74, 136);
+    border: 1px solid rgb(195, 195, 195);
+    color: white;
+    padding: 4px 4px 4px 4px;
+}
+    .opcionesConfesion:hover ,.opcionesConfesionConsulta:hover{
+        background-color: rgb(200,11,148);
+        cursor: pointer;
+
+    }
+/*Pantalla 3*/
+div.botContent3{
+    display: none;
+}
+    div.botContent3.active{
+        display: inline;
+    }
+
+/*Overlay y Popup de informacion*/
+.overlayDetalles{
+    background: rgba(0, 0, 0, .3);
+    position:fixed;
+    top:0;
+	bottom:0;
+	left:0;
+	right:0;
+	display:flex;
+	align-items:center;
+    justify-content:center;   
+    visibility: hidden;
+}
+    .overlayDetalles.active{
+        visibility: visible;
+    }
+.popupDetalles{
+    height: 50%;
+    overflow: scroll;
+    width: 45%;
+    background-color: seashell;
+    color: black;
+    transition: 0.1s ease all;
+    opacity: 0;
+}
+    .popupDetalles.active{
+        transition: 1s ease all;
+        opacity: 1;
+    }
+
+.parrafoNombre ,.parrafoApellido, .parrafoTelefono, .parrafoSexo, .parrafoUniversidad, .parrafoUsuario, .parrafoCosto{
+    display: none;
+}
+
+label.labelAceptar{
+    margin: auto;
+    display: inline-block;
+    background-color: rgb(112, 74, 136);
+    border: 1px solid rgb(195, 195, 195);
+    color: white;
+    padding: 4px 4px 4px 4px;
+}
+    label.labelAceptar:hover{
+        background-color: rgb(200,11,148);
+        cursor: pointer;
+    }
+/*Fin : Overlay y Popup de informacion*/

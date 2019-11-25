@@ -36,7 +36,7 @@
 					out.println("<a href='login/login.jsp'>Login</a>");
 					out.println("<a href='login/registro.jsp'>Registrarse</a>");
 				}else{
-					out.println("<a href='infoUser.jsp'>"+listaDatos.get(5)+"</a>");
+					out.println("<a href='login/infoUser.jsp'>"+listaDatos.get(5)+"</a>");
 					out.println("<a href='login/loginOff.jsp'>Cerra Sesion</a>");	
 				}
 			%>
