@@ -6,6 +6,8 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="../css/estiloInfoUser.css">
+        <link rel="stylesheet" type="text/css" href="../css/estiloInfoUser.css">
+
         <meta http-equiv=”Content-Type” content=”text/html; charset=ISO-8859-1″ />
         <meta name="viewport" content="width=device-width, user-scalable=no ,initial-scale=1.0,maximun-scale=1.0,minimun-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -14,6 +16,41 @@
         <title>Usuario</title>
     </head>
     <body>
+	    <header class='cabecera'>
+			<div class="topbar">
+				<div class="logo">
+					<!--Cambiar imagen-->
+					<a href="../index.jsp" class="referencia"><img src="../img/Confes.png" alt="Confe$ione$"></a>
+				</div>
+				<nav class="navegar">
+						<a href="">Trending</a>
+						<a href="">Recientes</a>
+						<a href="">Top</a>
+						<a href="">Antiguos</a>
+				</nav>
+				<div class="login">
+				<!-- Session -->
+				<%
+					
+					List<String> listaDatos=(List<String>)session.getAttribute("DatosUser");
+					if(listaDatos==null){
+						out.println("<a href='login/login.jsp' class='referencia'>Login</a>");
+						out.println("<a href='login/registro.jsp' class='referencia'>Registrarse</a>");
+					}else{
+						out.println("<a href='infoUser.jsp'class='referencia'>"+listaDatos.get(5)+"</a>");
+						out.println("<a href='loginOff.jsp'class='referencia'>Cerra Sesion</a>");	
+					}
+				%>
+				<!-- Fin de session -->
+				<!-- Base de datos de las Confesiones -->
+				
+			
+				<!-- Fin Base de datos de las confesiones -->
+				
+				</div>
+			</div>
+		</header>
+    
         <main class="contentPrincipal">
             <div class="topContent">
                 <ul class="menuInformacion">
@@ -23,8 +60,13 @@
                 </ul>
             </div>
 			<%
-				List<String> obtenerDatosUser=(List<String>)session.getAttribute("DatosUser");
 				
+				List<String> obtenerDatosUser=(List<String>)session.getAttribute("DatosUser");
+				ConsultaUsuario consult=new ConsultaUsuario();
+				
+				consult.confesionesDeUsuario(Integer.parseInt(obtenerDatosUser.get(0)));
+				consult.conexionConsulta();
+
 			%>
             <div class="botContent" id="idBotContent1">
                     <form class="formInformacion">
@@ -56,6 +98,20 @@
                     </form>
             </div>
                 <div class="botContent2" id="idBotContent2">
+					<%
+						int totalNum=0;
+						totalNum=consult.getNumConfesion().size();
+						if(totalNum!=0 ){							
+							for(int i=0;i<totalNum;i++){
+								out.println("<h2 class='parrafoDeConfesion'>Confesion "+consult.getNumConfesion().get(i)+"</h2><br><p class='parrafoDeConfesion'>"+consult.getTextConfesion().get(i)+"</p><br><label class='parrafoDeConfesion' style='border: 1px solid black;text-align: left; '>Precio : S/"+consult.getCostoConfesion().get(i)+"</label><br><label class='parrafoDeConfesion' style='border: 1px solid black;text-align: left; '>Fecha de publicacion : "+consult.getFechaConfesion().get(i)+"</label><br><br><label class='opcionesConfesion'>Eliminar confesion</label> <label class='opcionesConfesion'>Cambiar precio</label><hr color='gray' width='80%'><hr color='gray' width='80%'>");
+							}
+						}else{
+							out.println("<label class='parrafoDeConfesion' style='border: 1px solid black;text-align: left; '>No se encontraron resultados</label>");
+						}
+					%>
+
+	
+					<!-- Confesiones de prueba
                     <h2 class="parrafoDeConfesion">Confesion 2</h2>
                     <br>
                     <p class="parrafoDeConfesion">Mi confesion es la siguiente yo estaba caminando por la casas y luegoMi confesion es la siguiente yo estaba caminando por la casas y luegoMi confesion es la siguiente yo estaba caminando por la casas y luegoMi confesion es la siguiente yo estaba caminando por la casas y luegoMi confesion es la siguiente yo estaba caminando por la casas y luegoMi confesion es la siguiente yo estaba caminando por la casas y luegoMi confesion es la siguiente yo estaba caminando por la casas y luego</p>
@@ -81,7 +137,7 @@
                     <label class="opcionesConfesion">Eliminar confesion</label> <label class="opcionesConfesion">Cambiar precio</label>
                     <hr color='gray' width='80%'>
                     <hr color='gray' width='80%'>
-
+					 -->
                 </div>
 
                 <div class='botContent3' id='idBotContent3'>

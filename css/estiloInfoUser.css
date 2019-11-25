@@ -5,10 +5,13 @@ body{
 }
 
 body main.contentPrincipal{
-    background-color: seashell;
+
+	background-color: seashell;
     height: 80%;
     width: 60%;
     margin: auto;
+    position: relative;
+    top:50px;	
     color: black;
     text-align: center;
 }
@@ -169,3 +172,95 @@ label.labelAceptar{
         cursor: pointer;
     }
 /*Fin : Overlay y Popup de informacion*/
+
+
+/*Elemento repetido Header*/
+a.referencia {
+	text-decoration: none;
+	font-weight: bold;
+	color: #fff;
+}
+header.cabecera {
+	position: fixed;
+	top: 0px;
+	min-height: 60px;
+	max-height: 120px;
+	width: 100%;;
+	z-index: 10;
+	/*background-color: #1a001a;*/
+	box-shadow: 0px 0px 10px 0px black;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.315);
+	background: rgb(75,0,13);
+	background: linear-gradient(90deg, rgb(105, 0, 35) 0%, rgb(54, 0, 0) 100%);
+}
+.topbar a {
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.topbar {
+	margin: 0px 40px;
+}
+
+.logo {
+	width: 100px;
+	height: 60px;
+	float: left;
+	margin-right: 20px;;
+}
+
+.logo img, .logo a {
+	width: 100px;
+	height: 60px;
+}
+
+.navegar {
+	text-align: left;
+	padding: 0px 0px;
+	width: 50%;
+	float: left;
+	margin: 20px 0px;
+}
+
+
+.navegar a {
+	height: 20px;
+	padding: 20px 10px;
+}
+
+.navegar a:hover {
+	color: #000;
+	background-color: #e6e600;
+}
+
+.navegar a {
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+
+.login {
+	right: 0px;
+	width: 200px;
+	height: 20px;
+	padding: 0px 0px;
+	margin: 20px 0px;
+	float: right;
+}
+
+.login a {
+	padding-left: 8px;
+	border-left: 1px solid #00ffff;
+	color: #fff;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;;
+}
+
+.login a:hover {
+	color: rgb(189, 186, 0);
+}
+
+
+
+/*Fin Elemento repetido Header*/
