@@ -141,6 +141,24 @@
                 </div>
 
                 <div class='botContent3' id='idBotContent3'>
+
+					<%
+						totalNum=consult.getCompradoresConfesion().size();
+						if(totalNum!=0){
+							for(int i=0;i<totalNum;i++){
+								
+
+								out.println(consult.getNumeroUser().get(i));
+								out.println("<p class='parrafoNombre'>"+consult.getNombreUser().get(i)+"</p><p class='parrafoApellido'>"+consult.getApellidoUser().get(i)+"</p><p class='parrafoTelefono'>"+consult.getTelefonoUser().get(i)+"</p><p class='parrafoSexo'>"+consult.getSexoUser().get(i)+"</p><p class='parrafoUniversidad'>"+consult.getInstitucionUser().get(i)+"</p><p class='parrafoUsuario'>"+consult.getUsuarioUser().get(i)+"</p><p class='parrafoCosto'>S/"+consult.getCostoConfesionRevelados().get(i)+"</p><h2 class='parrafoDeConfesion'>Confesion #"+consult.getNumeroUser().get(i)+"</h2><br><p class='parrafoDeConfesion'>"+consult.getCompradoresConfesion().get(i)+"</p><br><label class='opcionesConfesionConsulta' id='"+i+"' >Detalles</label><hr color='gray' width='80%'><hr color='gray' width='80%'>");														
+							}
+						}else{
+							out.println("<label class='parrafoDeConfesion' style='border: 1px solid black;text-align: left; '>No se encontraron resultados</label>");
+						}
+					%>
+
+
+
+                	<!-- 
                     <p class="parrafoNombre">Pedro</p>
                     <p class="parrafoApellido">Picapiedra</p>
                     <p class="parrafoTelefono">910231233</p>
@@ -189,6 +207,7 @@
                     <label class='opcionesConfesionConsulta' id='2' >Detalles</label>
                     <hr color='gray' width='80%'>
                     <hr color='gray' width='80%'>
+                     -->
                 </div>
                 <div class="overlayDetalles" id="idOverlayDetalles">
                     <div class="popupDetalles" id="idPopupDetalles">

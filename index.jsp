@@ -89,7 +89,7 @@
             <div class="popupConfes" id="popupIdConfes">
                 <a href="#" align="center" class="cerrar-popup" id="btnCerrarConfes" onclick="cerrarVentanaConfesar();" ><img class="classIcon" src="img/closeIcon.png" style="max-width: 16px; max-height: 16px; padding: 5px;"></a>
                 <h2 align="center" >Informacion</h2>
-                <form name="confesarInfo" align="right"class="formClass"action="#" method="post">
+                <form name="confesarInfo" align="right"class="formClass"action="indexOff.jsp" method="post">
 					<input type="hidden" name="TAconfesion" id="idTA">
 					<div class="tablaClase">
 					<table class="tableClass2">
@@ -131,82 +131,6 @@
 			<!--Proceso de session-->
 			
 		
-			<%
-					String gato=request.getParameter("precio1");
-					DecimalFormat formato1 = new DecimalFormat("#.00");
-					float precio=(float)0.0;
-					if(gato!=null){
-						precio=Float.parseFloat(gato);
-						precio=precio*110/100;
-						gato=formato1.format(precio);
-						gato=gato.replace(",", ".");
-						precio=(float)Float.parseFloat(gato);
-					}
-					int idUsuario=0;
-					int contadorConfesion=0;
-					String etiqueta="UNMSM";
-					ConexionComentarios g2=new ConexionComentarios();
-					//Carga la fecha//
-					Fecha localFecha= new Fecha();
-					localFecha.cargarFecha();
-					
-					//Fin carga la fecha//
-					g2.Conectar();
-					List<String> infoUser=(List<String>)session.getAttribute("DatosUser");
-					
-					if(infoUser!=null){
-						etiqueta = infoUser.get(4);
-					}
-					
-					try{
-						idUsuario=Integer.parseInt(infoUser.get(0));
-					}catch(Exception e){
-					}
-			
-					contadorConfesion = g2.getSalidaConfesiones().size();
-					
-					ClaseConexion g1=new ClaseConexion();
-					String DBusuario = g1.getUsuario();
-					String DBcontra = g1.getContra();
-					Class.forName("com.mysql.jdbc.Driver");
-					Connection miConexion=null;
-					miConexion=DriverManager.getConnection(g1.getUrl(),DBusuario,DBcontra);
-					Statement miStatement=miConexion.createStatement();
-					
-					boolean Scomparador=false;
-					
-					//IP
-					String IP="0";
-					try {
-						IP=java.net.InetAddress.getLocalHost().getHostAddress();
-					} catch (Exception e) {
-						
-					}
-					//Fin IP
-					
-					String elementos=request.getParameter("TAconfesion");
-					
-					if(elementos!=null && elementos!=" "){
-						for(String auxiliar:g2.getSalidaConfesiones()){
-							if(elementos.equals(auxiliar)){
-								Scomparador=true;
-							}
-						}
-						
-						if(Scomparador==false && elementos!=null){
-							contadorConfesion=contadorConfesion+1; 
-			
-							if(infoUser!=null){
-								miStatement.executeUpdate("INSERT INTO confesion VALUE("+contadorConfesion+",'"+elementos+"',"+idUsuario+",'"+etiqueta+"','"+IP+"','"+localFecha.getFechaActual()+"',"+precio+")");	
-				
-							}else{
-								//idUsuario=1;
-								//miStatement.executeUpdate("INSERT INTO confesion VALUE("+contadorConfesion+",'"+elementos+"',"+idUsuario+",'"+etiqueta+"','"+IP+"','"+localFecha.getFechaActual()+"',"+precio+")");	
-							}
-							miConexion.close();
-						}
-					}
-			%>
 			<!--Proceso de session-->
 			<!--Cuadro de texto mejorado-->
 			<section id="confe3" class="Ctexto">
@@ -369,7 +293,7 @@
 								header="Confesion #";
 							}
 							NombreValor++;
-							out.println("<section>"+"<div class='confes-header'><h2><p class='classObtenerConfes'>"+header+""+i+"</p>     <label class='etiquetaName'>Anonimo</label>     <label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label>     <label class='etiquetaName'>"+Sfecha+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>  Precio: </span> <span class='Fpagoprecio'>S/ "+Fpago+"</span><button id='"+i+"' class='open-popup' >Pagar</button></div>"+"</section>");
+							out.println("<section>"+"<div class='confes-header'><h2><p class='classObtenerConfes'>"+header+""+g4.getNumAllUse().get(i)+"</p>     <label class='etiquetaName'>Anonimo</label>     <label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label>     <label class='etiquetaName'>"+Sfecha+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>  Precio: </span> <span class='Fpagoprecio'>S/ "+Fpago+"</span><button id='"+i+"' class='open-popup' >Pagar</button></div>"+"</section>");
 						}
 						
 					}
@@ -378,12 +302,13 @@
 				}
 				
 			%>
+			
 		 <div class="overlay" id="overlayId">
         
             <div class="popup" id="popupId">
                 <a href="#" class="cerrar-popup" id="btnCerrar" onclick="cerrarVentana();" ><img  class="classIcon" src="img/closeIcon.png" ></a>
                 <h2 id="infoH2" align="center">Detalles</h2>
-                <form class="formClass"action="#" method="post" name="formPago2">
+                <form class="formClass"action="indexOff.jsp" method="post" name="formPago2">
                     <table class="tableClass1">
                         <tr>
                             <td class="vaca">Monto a pagar</td>
@@ -392,6 +317,7 @@
                         <tr>
                             <td>La confesion a revelar es : </td>
                             <td><input id="numConfesionId" type="text" value="Confesion 1" name="inputPago2"  disabled></td>
+							<input name="numConfesionOculto" type="hidden">
                         </tr>
                         <tr>
                             <td colspan=2 align="center">�Esta seguro que desea continuar?</td>

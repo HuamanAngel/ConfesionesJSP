@@ -74,7 +74,7 @@
 						listaDatos.add(6,miResultSet.getString("contraseña"));
 						listaDatos.add(7,miResultSet.getString("numTelefono"));
 						listaDatos.add(8,miResultSet.getString("modalidadPago"));
-						
+						listaDatos.add(9,miResultSet.getString("dineroTotal"));
 						
 						
 						//Fin Atrapar datos

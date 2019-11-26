@@ -10,10 +10,11 @@ CREATE TABLE usuario(
     contraseña varchar(8) NOT NULL UNIQUE,
 	numTelefono int NOT NULL,
 	modalidadPago varchar(10) NOT NULL,
+	dineroTotal FLOAT(10,2),
 	PRIMARY KEY(idUsuario)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
-INSERT INTO usuario VALUE(1,'Anonimo','Anonimo','unmsm','HF','Anonimo','aBzJdea',9999,'NotInfo');
+INSERT INTO usuario VALUE(1,'Anonimo','Anonimo','unmsm','HF','Anonimo','aBzJdea',9999,'NotInfo',20.0);
 
 CREATE TABLE confesion(
 	idConfesion int NOT NULL AUTO_INCREMENT,
@@ -23,11 +24,12 @@ CREATE TABLE confesion(
     direccionIp VARCHAR(22),
 	tiempo TIMESTAMP,
 	precio FLOAT(5,2),
+	idCompradores VARCHAR(400),
     PRIMARY KEY(idConfesion),
     KEY idUsConf(idUsConf)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
-INSERT INTO confesion VALUE(1,'Mi primera confesion es la sgt:',1,'unmsm',3434,'2019-11-13 10:10:10',12.00);
+INSERT INTO confesion VALUE(1,'Mi primera confesion es la sgt:',1,'unmsm',3434,'2019-11-13 10:10:10',12.00,'F');
 
 ALTER TABLE Confesion
 	ADD CONSTRAINT Confesion_ibfk_1 FOREIGN KEY (idUsConf) REFERENCES Usuario (idUsuario) ON DELETE CASCADE ON UPDATE CASCADE;

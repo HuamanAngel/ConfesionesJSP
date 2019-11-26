@@ -15,11 +15,14 @@ var costoPago;
 var costoVendedor;
 
 $(document).ready(function(){
-    $('.open-popup').click(function(){
+
+	$('.open-popup').click(function(){
     	var idBoton=$(this).attr('id');
         var texto1=classParrafoConfesion[classParrafoConfesion.length-idBoton-1].innerHTML;
         var texto2=classParrafoPago[classParrafoPago.length-idBoton-1].innerHTML;
-
+        var regex = /(\d+)/g;
+        var cadena=texto1;
+        var valorTexto=cadena.match(regex)-1+1;
         
         
         overlay.classList.add('active');
@@ -27,6 +30,8 @@ $(document).ready(function(){
 
         document.formPago2.inputPago2.value=texto1;
         document.formPago2.inputValor2.value=texto2;
+        document.formPago2.numConfesionOculto.value=valorTexto;
+        
 /*        for(var i=0;i<classObtenerConfesion.length;i++){
 
         	caracterUnidad=classObtenerConfesion[i].innerHTML;
