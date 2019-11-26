@@ -17,9 +17,9 @@ div.overlayConfes{
         visibility: visible;
     }
 div.popupConfes{
-    height: 300px;
-    width: 50%;
-    
+    height: 350px;
+    width: 40%;
+    overflow:scroll;
     background-color: seashell;
     color: red;
     transition: 0.1s ease all;
@@ -31,19 +31,6 @@ div.popupConfes{
         
     }
     
-
-table.tableClass2{
-    font-size: 18px;
-    width: 200%;
-    color:black;
-    position: relative;
-    display: inherit;
-    right: -25%;
-    align-text:center;
-}
-    table.tableClass2 input{
-        align-content: center;
-    }
     
 /*Fin para el boton confesar*/
 div.overlay{
@@ -69,34 +56,40 @@ h2#infoH2{
 	font-size:20px;
 }
 a.cerrar-popup{
-
+	display:inline-block;
+	position:relative;
+	left:45%;
 }
 
     a.cerrar-popup:hover{
         display:inline-block;
         background-color: yellow;
-        position: relative;
 
     }
+
+div#popupIdConfes a.cerrar-popup{
+	display:inline-block;
+	position:relative;
+	left:95%;
+}
+
+    a.cerrar-popup:hover{
+        display:inline-block;
+        background-color: yellow;
+
+    }
+
 img.classIcon{
     max-width: 16px; 
     max-height: 16px;
     padding: 5px;
 
 }
-table.tableClass1{
-    font-size: 18px;
-    align-content: center;
-    margin: 0 auto;
-    color:black;
-}
-    table.tableClass1 input{
-        align-content: center;
-    }
 
 div.popup{
     height: 250px;
     width: 50%;
+    overflow:scroll;
     background-color: seashell;
     transition: 0.1s ease all;
     opacity: 0;
@@ -130,7 +123,28 @@ button.open-popup:hover, button.open-popup2:hover {
 	color: #000;
 }
 
+/*PopUp de confesar*/
 
+div.tablaClase{
+	width:100%;
+}
+label.labelPop1{
+	color:black;
+	width: 50%;
+    display: inline-block;
+    text-align: right;
+	margin:10px 10px 10px 10px;	
+}
+
+
+input.entrada1{
+	display:inline;
+}
+/*Fin PopUp de confesar*/
+
+.tableClass1{
+	color:black;
+}
 
 
 @media only screen and (max-width:750px){
@@ -138,15 +152,7 @@ button.open-popup:hover, button.open-popup2:hover {
         height: 250px;
         width: 60%;
     }
-    td.vaca{
-        display: inline-block;
-    }
     div.popupConfes{
         height: 300px;
         width: 60%;
     }
-    table.tableClass2{
-        right: -10%;
-    }
-
-}

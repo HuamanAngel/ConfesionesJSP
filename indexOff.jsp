@@ -91,11 +91,49 @@
 				%>
 	
 				<%
-		           try{
+					
+				try{
+
 					List<String> listaDatos=(List<String>)session.getAttribute("DatosUser");
 		           	boolean estaDentro=false;
                 	int valorConfesion=-1;
                 	String convertir="";
+
+					String costoConfesion=request.getParameter("nameCostoId");
+					float costoTotal=0;
+
+					if(costoConfesion!=null){
+						float costoTotal2=0;
+						String costoConfesion2;
+						String aux2;
+						DecimalFormat formato2 = new DecimalFormat("#.00");
+						EntradaConexion entradaPago=new EntradaConexion();
+						String auxVal;
+						
+						
+						costoConfesion=costoConfesion.replace("S", "");
+						costoConfesion=costoConfesion.replace("/", "");
+						
+						/*Inicio de Pago al usuario*/						
+						costoConfesion2=costoConfesion;
+						costoTotal2=Float.parseFloat(costoConfesion2);
+						aux2=formato2.format(costoTotal2);
+						aux2=aux2.replace(",", ".");
+						costoTotal2=Float.parseFloat(aux2);
+						/*Fin Inicio de Pago al usuario*/
+						
+						costoTotal=Float.parseFloat(costoConfesion);
+						costoTotal=Float.parseFloat(listaDatos.get(9))-costoTotal;
+						auxVal=formato2.format(costoTotal);
+						auxVal=auxVal.replace(",", ".");
+						costoTotal=Float.parseFloat(auxVal);
+						
+						entradaPago.entradaPago(costoTotal, Integer.parseInt(listaDatos.get(0)));
+						
+						entradaPago.entradaDinero(costoTotal2,Integer.parseInt(request.getParameter("nameUsuarioPagar")));
+						listaDatos.set(9, auxVal);
+					}
+		        	  
 					if(request.getParameter("numConfesionOculto")!=null){
 	                	valorConfesion=Integer.parseInt(request.getParameter("numConfesionOculto"));						
 					}

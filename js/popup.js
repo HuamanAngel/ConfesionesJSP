@@ -23,6 +23,12 @@ $(document).ready(function(){
         var regex = /(\d+)/g;
         var cadena=texto1;
         var valorTexto=cadena.match(regex)-1+1;
+        var idBotonAux="A"+idBoton;
+
+        var idParrafoUser=document.getElementById(idBotonAux);
+
+        var textoIdUser=idParrafoUser.innerHTML;
+
         
         
         overlay.classList.add('active');
@@ -31,7 +37,8 @@ $(document).ready(function(){
         document.formPago2.inputPago2.value=texto1;
         document.formPago2.inputValor2.value=texto2;
         document.formPago2.numConfesionOculto.value=valorTexto;
-        
+        document.formPago2.nameCostoId.value=texto2;
+        document.formPago2.nameUsuarioPagar.value=textoIdUser;
 /*        for(var i=0;i<classObtenerConfesion.length;i++){
 
         	caracterUnidad=classObtenerConfesion[i].innerHTML;
@@ -41,6 +48,18 @@ $(document).ready(function(){
 */
     })
 })
+
+function validacionFormulario(){
+	var valid;
+
+	valid=document.confesarInfo.TAconfesion.value;
+	
+	if(valid>399){
+		alert("Se paso los caracter maximos permitidos : 399 ");
+		return false;
+	}
+	return true;
+}
 
 function cerrarVentana(){
     overlay.classList.remove('active');
@@ -62,22 +81,27 @@ function colocarCosto(){
     costo=document.confesarInfo.precio1.value;
     costoPago=costo*110/100;
     costoVendedor=costo*10/100;
-
+    
     document.confesarInfo.precio2.value=costoPago.toFixed(2);
     document.confesarInfo.precio3.value=costoVendedor.toFixed(2);
+    document.getElementById("idPrecio2").value=costoPago.toFixed(2);
+    document.getElementById("idPrecio3").value=costoVendedor.toFixed(2);
+
     if(costo>=0 && costo<100){
-    	document.getElementById('textoParrafo').innerHTML=" ";
+    	//document.getElementById('textoParrafo').innerHTML=" ";
     	if(costo!=0){
         	document.confesarInfo.confesarSubmit.disabled=false;
-        	document.getElementById('textoParrafo').innerHTML=" ";
+        	//document.getElementById('textoParrafo').innerHTML=" ";
 
     	}else{
         	document.confesarInfo.confesarSubmit.disabled=true;    		
-        	document.getElementById('textoParrafo').innerHTML="No se puede colocar el valor de 0";
+        	alert("No se puede colocar el valor de 0");
+        	//document.getElementById('textoParrafo').innerHTML="No se puede colocar el valor de 0";
     	}
     }else{
     	document.confesarInfo.confesarSubmit.disabled=true;
-    	document.getElementById('textoParrafo').innerHTML="No se puede colocar valores negativos o mayores que 99";
+    	alert("No se puede colocar valores negativos o mayores que 99");
+    	//document.getElementById('textoParrafo').innerHTML="No se puede colocar valores negativos o mayores que 99";
     }
     
     
