@@ -37,7 +37,7 @@
 					out.println("<a href='login/registro.jsp'>Registrarse</a>");
 				}else{
 					out.println("<a href='login/infoUser.jsp'>"+listaDatos.get(5)+"</a>");
-					out.println("<a href='login/infoUser.jsp'>"+listaDatos.get(9)+"</a>");
+					out.println("<a href='login/infoUser.jsp'>"+"S/"+""+listaDatos.get(9)+"</a>");
 					out.println("<a href='login/loginOff.jsp'>Cerra Sesion</a>");	
 				}
 			%>
@@ -95,6 +95,7 @@
                 <h2 align="center" >Informacion</h2>
                 <form name="confesarInfo" align="center" class="formClass"action="indexOff.jsp" method="post">
 					<div class="tablaClase">
+							<p id="existeUsuario" style="display:none;"><%if(listaDatos==null){out.println(-1);}else{out.println(1);} %></p>
 							<input type="hidden" name="TAconfesion" id="idTA">
                             <label class="labelPop1">Precio de la confesion : S/</label>
                             <input class="entrada1" name="precio1" type="text" value="10.00" onblur="colocarCosto();">
@@ -154,12 +155,34 @@
 				String ordenar=null;
 				ConexionComentarios g4=new ConexionComentarios();
 				filtro=request.getParameter("filtro-institucion");
+				String filtro2;
+				filtro2=filtro;
 				ordenar=request.getParameter("");
 				g4.EvaluarFecha(filtro);
-				
+				/*Saber si ya se pago*/
+				ArrayList<Integer> pagoRepetido;
+				ConsultaUsuario consult=new ConsultaUsuario();
+				if(info!=null){
+					consult.confesionesDeUsuario(Integer.parseInt(info.get(0)));					
+				}else{
+					consult.confesionesDeUsuario(-1);										
+				}
+				if(filtro==null){
+					filtro2="all";
+				}
+				consult.setFiltro(filtro2);
+				consult.conexionConsulta();
+				if("all".equals(filtro2)){
+					pagoRepetido=consult.geEsRepetidoPagoAll();
+				}else{
+					pagoRepetido=consult.getEsRepetidoPago();
+				}
+				/*Fin Saber si ya se pago*/
 				if(filtro==null){
 					g4.EvaluarFecha("all");
 				}
+				
+				
 				
 				g4.Conectar();
 				
@@ -282,7 +305,7 @@
 								header="Confesion #";
 							}
 							NombreValor++;
-							out.println("<section>"+"<div class='confes-header'><h2><p class='classObtenerConfes'>"+header+""+g4.getNumAllUse().get(i)+"</p>     <label class='etiquetaName'>Anonimo</label>     <p id='A"+i+"' style='display:none;'>"+allIdUsuarios.get(i)+"</p><label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label>     <label class='etiquetaName'>"+Sfecha+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>  Precio: </span> <span class='Fpagoprecio'>S/ "+Fpago+"</span><button id='"+i+"' class='open-popup' >Pagar</button></div>"+"</section>");
+							out.println("<section>"+"<div class='confes-header'><h2><p class='classObtenerConfes'>"+header+""+g4.getNumAllUse().get(i)+"</p>     <label class='etiquetaName'>Anonimo</label>     <p id='A"+i+"' style='display:none;'>"+allIdUsuarios.get(i)+"</p><p id='B"+i+"' style='display:none;'>"+pagoRepetido.get(i)+"</p><label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label>     <label class='etiquetaName'>"+Sfecha+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>  Precio: </span> <span class='Fpagoprecio'>S/ "+Fpago+"</span><button id='"+i+"' class='open-popup' >Pagar</button></div>"+"</section>");
 						}
 						
 					}

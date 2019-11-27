@@ -24,10 +24,14 @@ $(document).ready(function(){
         var cadena=texto1;
         var valorTexto=cadena.match(regex)-1+1;
         var idBotonAux="A"+idBoton;
+        var idPagoRepetido="B"+idBoton;
+        
 
         var idParrafoUser=document.getElementById(idBotonAux);
-
+        var idParrafoPagoRepetido=document.getElementById(idPagoRepetido);
+        
         var textoIdUser=idParrafoUser.innerHTML;
+        var textoIdPagoRepetido=idParrafoPagoRepetido.innerHTML;
 
         var idParrafoOcultoUser=document.getElementById("idUsuarioNoTocar").innerHTML;
         var idParrafoOcultoPago=document.getElementById("idPagoNoTocar").innerHTML;
@@ -47,13 +51,17 @@ $(document).ready(function(){
         valor1=parseFloat(valor1);
         valor2=parseFloat(valor2);
         
-        
         if(idParrafoOcultoUser!=-1){
             if(parseInt(idParrafoOcultoUser.trim().toString())!=parseInt(textoIdUser.trim().toString())){
             	if(valor2>=valor1){
-            		document.formPago2.form2Submit.disabled=false;            		
-                    overlay.classList.add('active');
-                    popup.classList.add('active');
+            		if(textoIdPagoRepetido==0){
+                		document.formPago2.form2Submit.disabled=false;            		
+                        overlay.classList.add('active');
+                        popup.classList.add('active');            			
+            		}else{
+            			alert("Ya pagaste esta confesion, revisar en tu cuenta de usuario");
+                    	document.formPago2.form2Submit.disabled=true;    	            		            			
+            		}
 
             	}else{
                 	alert("Dinero insuficiente");
@@ -96,10 +104,16 @@ function cerrarVentana(){
 }
 function abrirVentanaConfesar(){
     texto=document.orley.TAconfesionAUX.value;
-    overlayConfes.classList.add('active');
-    popupConfes.classList.add('active');
     document.getElementById('idTA').value=texto;  
 
+    var usuarioAnonimoConfesar=document.getElementById("existeUsuario").innerHTML;
+    if(usuarioAnonimoConfesar==-1){
+    	alert("Tienes que registrarte para confesarte");
+    }else{
+        overlayConfes.classList.add('active');
+        popupConfes.classList.add('active');    	
+    }
+    
 }
 
 function cerrarVentanaConfesar(){
