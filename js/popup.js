@@ -29,7 +29,9 @@ $(document).ready(function(){
 
         var textoIdUser=idParrafoUser.innerHTML;
 
-        
+        var idParrafoOcultoUser=document.getElementById("idUsuarioNoTocar").innerHTML;
+        var idParrafoOcultoPago=document.getElementById("idPagoNoTocar").innerHTML;
+
         
         overlay.classList.add('active');
         popup.classList.add('active');
@@ -39,7 +41,26 @@ $(document).ready(function(){
         document.formPago2.numConfesionOculto.value=valorTexto;
         document.formPago2.nameCostoId.value=texto2;
         document.formPago2.nameUsuarioPagar.value=textoIdUser;
-/*        for(var i=0;i<classObtenerConfesion.length;i++){
+        
+        if(idParrafoOcultoUser!=-1){
+            if(idParrafoOcultoUser.trim()!=textoIdUser.trim()){
+            	if(idParrafoOcultoPago.trim()>=texto2.substring(2).trim()){
+            		document.formPago2.form2Submit.disabled=false;            		
+
+            	}else{
+                	alert("Dinero insuficiente");
+                	document.formPago2.form2Submit.disabled=true;    	            		
+            	}
+            }else{
+            	alert("No puedes revelar porque tu eres el que se confeso");
+            	document.formPago2.form2Submit.disabled=true;    	
+            }        	
+        }else{
+        	alert("Registrate para revelar confesiones");
+        	document.formPago2.form2Submit.disabled=true;    	
+        }
+
+        /*        for(var i=0;i<classObtenerConfesion.length;i++){
 
         	caracterUnidad=classObtenerConfesion[i].innerHTML;
 
@@ -70,6 +91,7 @@ function abrirVentanaConfesar(){
     overlayConfes.classList.add('active');
     popupConfes.classList.add('active');
     document.getElementById('idTA').value=texto;  
+
 }
 
 function cerrarVentanaConfesar(){
@@ -86,7 +108,7 @@ function colocarCosto(){
     document.confesarInfo.precio3.value=costoVendedor.toFixed(2);
     document.getElementById("idPrecio2").value=costoPago.toFixed(2);
     document.getElementById("idPrecio3").value=costoVendedor.toFixed(2);
-
+    
     if(costo>=0 && costo<100){
     	//document.getElementById('textoParrafo').innerHTML=" ";
     	if(costo!=0){

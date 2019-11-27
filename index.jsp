@@ -41,6 +41,9 @@
 					out.println("<a href='login/loginOff.jsp'>Cerra Sesion</a>");	
 				}
 			%>
+			<p id="idUsuarioNoTocar" style='display:none;'><%if(listaDatos!=null){out.println(Integer.parseInt(listaDatos.get(0)));}else{out.println(-1);}%></p>
+			<p id="idPagoNoTocar" style='display:none;'><%if(listaDatos!=null){out.println(Float.parseFloat(listaDatos.get(9)));}else{out.println(-1);}%></p>
+			
 			<!-- Fin de session -->
 			<!-- Base de datos de las Confesiones -->
 			
@@ -314,7 +317,7 @@
                         </tr>
                         
                         <tr>
-                            <td colspan=2 align="center"><input type="submit" value="Pagar"></td>
+                            <td colspan=2 align="center"><input type="submit" value="Pagar" name="form2Submit" disabled></td>
                         </tr>
                     </table>
                 </form>  
