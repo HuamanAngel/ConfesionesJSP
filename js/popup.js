@@ -33,8 +33,6 @@ $(document).ready(function(){
         var idParrafoOcultoPago=document.getElementById("idPagoNoTocar").innerHTML;
 
         
-        overlay.classList.add('active');
-        popup.classList.add('active');
 
         document.formPago2.inputPago2.value=texto1;
         document.formPago2.inputValor2.value=texto2;
@@ -42,10 +40,20 @@ $(document).ready(function(){
         document.formPago2.nameCostoId.value=texto2;
         document.formPago2.nameUsuarioPagar.value=textoIdUser;
         
+        var valor1=texto2.substring(2).trim();
+        var valor2=idParrafoOcultoPago.trim();
+        valor1=valor1.toString();
+        valor2=valor2.toString();
+        valor1=parseFloat(valor1);
+        valor2=parseFloat(valor2);
+        
+        
         if(idParrafoOcultoUser!=-1){
-            if(idParrafoOcultoUser.trim()!=textoIdUser.trim()){
-            	if(idParrafoOcultoPago.trim()>=texto2.substring(2).trim()){
+            if(parseInt(idParrafoOcultoUser.trim().toString())!=parseInt(textoIdUser.trim().toString())){
+            	if(valor2>=valor1){
             		document.formPago2.form2Submit.disabled=false;            		
+                    overlay.classList.add('active');
+                    popup.classList.add('active');
 
             	}else{
                 	alert("Dinero insuficiente");
