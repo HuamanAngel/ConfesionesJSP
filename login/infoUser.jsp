@@ -80,7 +80,7 @@
                         <label>Telefono : </label><input type="text" value="<%out.println(obtenerDatosUser.get(7));%>" disabled>
                         <br>
                         <br>
-                        <label>Sexo : </label><input type="text" value="<%if(obtenerDatosUser.get(4).equals("M")){out.println("Masculino");}else{out.println("Femenino");}%>" disabled>
+                        <label>Sexo : </label><input type="text" value="<%if(obtenerDatosUser.get(3).equals("M")){out.println("Masculino");}else{out.println("Femenino");}%>" disabled>
                         <br>
                         <br>
                         <label>Universidad : </label><input type="text" value="<%out.println(obtenerDatosUser.get(4)); %>" disabled>
@@ -149,7 +149,14 @@
 								
 
 								out.println(consult.getNumeroUser().get(i));
-								out.println("<p class='parrafoNombre'>"+consult.getNombreUser().get(i)+"</p><p class='parrafoApellido'>"+consult.getApellidoUser().get(i)+"</p><p class='parrafoTelefono'>"+consult.getTelefonoUser().get(i)+"</p><p class='parrafoSexo'>"+consult.getSexoUser().get(i)+"</p><p class='parrafoUniversidad'>"+consult.getInstitucionUser().get(i)+"</p><p class='parrafoUsuario'>"+consult.getUsuarioUser().get(i)+"</p><p class='parrafoCosto'>S/"+consult.getCostoConfesionRevelados().get(i)+"</p><h2 class='parrafoDeConfesion'>Confesion #"+consult.getNumeroUser().get(i)+"</h2><br><p class='parrafoDeConfesion'>"+consult.getCompradoresConfesion().get(i)+"</p><br><label class='opcionesConfesionConsulta' id='"+i+"' >Detalles</label><hr color='gray' width='80%'><hr color='gray' width='80%'>");														
+								String sexoValor;
+								if(consult.getApellidoUser().get(i).equals("M") || consult.getApellidoUser().get(i).equals("m")){
+									sexoValor="Masculino";
+								}else{
+									sexoValor="Femenino";
+								}
+								
+								out.println("<p class='parrafoNombre'>"+consult.getNombreUser().get(i)+"</p><p class='parrafoApellido'>"+consult.getApellidoUser().get(i)+"</p><p class='parrafoTelefono'>"+consult.getTelefonoUser().get(i)+"</p><p class='parrafoSexo'>"+sexoValor+"</p><p class='parrafoUniversidad'>"+consult.getInstitucionUser().get(i)+"</p><p class='parrafoUsuario'>"+consult.getUsuarioUser().get(i)+"</p><p class='parrafoCosto'>S/"+consult.getCostoConfesionRevelados().get(i)+"</p><h2 class='parrafoDeConfesion'>Confesion #"+consult.getNumeroUser().get(i)+"</h2><br><p class='parrafoDeConfesion'>"+consult.getCompradoresConfesion().get(i)+"</p><br><label class='opcionesConfesionConsulta' id='"+i+"' >Detalles</label><hr color='gray' width='80%'><hr color='gray' width='80%'>");														
 							}
 						}else{
 							out.println("<label class='parrafoDeConfesion' style='border: 1px solid black;text-align: left; '>No se encontraron resultados</label>");
