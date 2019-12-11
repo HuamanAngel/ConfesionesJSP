@@ -131,7 +131,7 @@ function colocarCosto(){
     document.getElementById("idPrecio2").value=costoPago.toFixed(2);
     document.getElementById("idPrecio3").value=costoVendedor.toFixed(2);
     
-    if(costo>=0 && costo<100){
+    if(costo>=0 && costo<5){
     	//document.getElementById('textoParrafo').innerHTML=" ";
     	if(costo!=0){
         	document.confesarInfo.confesarSubmit.disabled=false;
@@ -144,7 +144,7 @@ function colocarCosto(){
     	}
     }else{
     	document.confesarInfo.confesarSubmit.disabled=true;
-    	alert("No se puede colocar valores negativos o mayores que 99");
+    	alert("No se puede colocar valores negativos o mayores que 5");
     	//document.getElementById('textoParrafo').innerHTML="No se puede colocar valores negativos o mayores que 99";
     }
     

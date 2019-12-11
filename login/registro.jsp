@@ -134,7 +134,7 @@
 						if(Stelefono!=null && Btelefono==false){
 							if(Sinstitucion!=null ){
 								contadorUsuarios++;
-								miStatement.executeUpdate("INSERT INTO usuario VALUE("+contadorUsuarios+",'"+Rname+"','"+Rapellido+"','"+Sinstitucion+"','"+Ssexo+"','"+Susuario+"','"+Scontra+"',"+Itelefono+",'"+Smodalidad+"',"+20.00+")");
+								miStatement.executeUpdate("INSERT INTO usuario VALUE("+contadorUsuarios+",'"+Rname+"','"+Rapellido+"','"+Sinstitucion+"','"+Ssexo+"','"+Susuario+"','"+Scontra+"',"+Itelefono+",'"+Smodalidad+"',"+10.00+")");
 								miConexion.close();
 								response.sendRedirect("../index.jsp");
 							}else{

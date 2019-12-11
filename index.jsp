@@ -91,7 +91,7 @@
 		 <div class="overlayConfes" id="overlayIdConfes">
         
             <div class="popupConfes" id="popupIdConfes">
-                <a href="#" align="center" class="cerrar-popup" id="btnCerrarConfes" onclick="cerrarVentanaConfesar();" ><img class="classIcon" src="img/closeIcon.png" style="max-width: 16px; max-height: 16px; padding: 5px;"></a>
+                <a href="#" align="center" class="cerrar-popupA" id="btnCerrarConfes" onclick="cerrarVentanaConfesar();" style="color:blue;">Cerrar Ventana</a>
                 <h2 align="center" >Informacion</h2>
                 <form name="confesarInfo" align="center" class="formClass"action="indexOff.jsp" method="post">
 					<div class="tablaClase">
@@ -106,9 +106,13 @@
                             <label class="labelPop1">Se retiene : S/</label>
                             <input class="entrada1" name="precio3" type="text" id="idPrecio3" value="1.00"  disabled> 
                             <br>
+                            <!-- 
                             <label class="labelPop1">Esta seguro que desea continuar?</label>
                             <input class="entrada1" type="checkbox" >Si
                             <br>
+                             -->
+                             <br/>
+                             <br/>
                             <label class="labelPop1" name="informacionP"></label>
                             <label class="labelPop1"></label><input type="submit" value="Confesar" name="confesarSubmit" onsubmit="return validacionFormulario() "disabled>
 					</div>
@@ -125,7 +129,7 @@
 			<!--Cuadro de texto mejorado-->
 			<section id="confe3" class="Ctexto">
 				<div class="confes-header">
-					<h2>Confesion   <% List<String> info=(List<String>)session.getAttribute("DatosUser");if(info==null){out.println("<label class='etiquetaName'>Anonimo</label>"+ "     <label class='etiquetaName'>UNMSM</label>     "+"<label class='etiquetaName'>No detectable</label>" );}else{out.println("<label class='etiquetaName'>"+info.get(5) + "</label>     <label class='etiquetaName'>" + info.get(4)+"</label>"+"     <label class='etiquetaName'>Detectable</label>");}%></h2>
+					<h2>Confesion<br/>   <% List<String> info=(List<String>)session.getAttribute("DatosUser");if(info==null){out.println("<label class='etiquetaName'>Anonimo</label>"+ "     <label class='etiquetaName'>UNMSM</label>     "+"<label class='etiquetaName'>No detectable</label>" );}else{out.println("<label class='etiquetaName'>"+info.get(5) + "</label>     <label class='etiquetaName'>" + info.get(4)+"</label>"+"     <label class='etiquetaName'>Detectable</label>");}%></h2>
 					<hr>
 				</div>
 
@@ -305,6 +309,14 @@
 								header="Confesion #";
 							}
 							NombreValor++;
+							String val1=String.valueOf(Sfecha.charAt(0))+String.valueOf(Sfecha.charAt(1))+String.valueOf(Sfecha.charAt(2))+String.valueOf(Sfecha.charAt(3));
+							val1=val1+"/"+String.valueOf(Sfecha.charAt(5))+String.valueOf(Sfecha.charAt(6));
+							val1=val1+"/"+String.valueOf(Sfecha.charAt(8))+String.valueOf(Sfecha.charAt(9));
+							/*
+							val1=val1+" "+String.valueOf(Sfecha.charAt(11))+String.valueOf(Sfecha.charAt(12));
+							val1=val1+":"+String.valueOf(Sfecha.charAt(13))+String.valueOf(Sfecha.charAt(14));
+							*/
+							Sfecha=val1;
 							out.println("<section>"+"<div class='confes-header'><h2><p class='classObtenerConfes'>"+header+""+g4.getNumAllUse().get(i)+"</p>     <label class='etiquetaName'>Anonimo</label>     <p id='A"+i+"' style='display:none;'>"+allIdUsuarios.get(i)+"</p><p id='B"+i+"' style='display:none;'>"+pagoRepetido.get(i)+"</p><label class='etiquetaName'>"+Setiqueta+"</label>     <label class='etiquetaName'>"+Pago+"</label>     <label class='etiquetaName'>"+Sfecha+"</label></h2><hr></div>"+"<p>"+Sauxiliar+"</p>"+ "<div class='confes-footer'><span class='p'>  Precio: </span> <span class='Fpagoprecio'>S/ "+Fpago+"</span><button id='"+i+"' class='open-popup' >Pagar</button></div>"+"</section>");
 						}
 						
@@ -394,13 +406,12 @@
 
 	<script src="js/popup.js"></script>
 	
-	<!--
 	<footer>
 		<span>Copyright© 2019 Confe$$ Todos los derechos reservados</span>
 		<a href="">Contacto</a>
 		<a href="">Nosotros</a>
 		<a href="">Términos y condiciones</a>
 	</footer>
-	-->
+
 </body>
 </html>

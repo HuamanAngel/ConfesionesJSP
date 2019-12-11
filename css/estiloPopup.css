@@ -17,13 +17,16 @@ div.overlayConfes{
         visibility: visible;
     }
 div.popupConfes{
-    height: 350px;
-    width: 40%;
+    height: 250px;
+    width: 30%;
     overflow:scroll;
     background-color: seashell;
     color: red;
     transition: 0.1s ease all;
     opacity: 0;
+    align-items:center;
+	justify-content:center;   
+    text-align:center;
 }
     div.popupConfes.active{
         transition: 1s ease all;
@@ -55,6 +58,25 @@ h2#infoH2{
 	color:red;
 	font-size:20px;
 }
+
+a#btnCerrarConfes{
+	display:inline-block;
+	position:relative;
+	left:10px;
+	
+}
+a.cerrar-popupA{
+	display:inline-block;
+	position:relative;
+}
+
+    a.cerrar-popupA:hover{
+        display:inline-block;
+        background-color: yellow;
+
+    }
+
+
 a.cerrar-popup{
 	display:inline-block;
 	position:relative;
@@ -126,26 +148,33 @@ button.open-popup:hover, button.open-popup2:hover {
 /*PopUp de confesar*/
 
 div.tablaClase{
-	width:100%;
+	width:120%;
 }
 label.labelPop1{
 	color:black;
-	width: 50%;
-    display: inline-block;
+	width: 40%;
+	display:inline;
     text-align: right;
 	margin:10px 10px 10px 10px;	
 }
 
 
 input.entrada1{
+	width: 20%;	
 	display:inline;
 }
 /*Fin PopUp de confesar*/
 
 .tableClass1{
 	color:black;
+	
 }
 
+/*Emergencia*/
+
+form.formClass{
+	width: 60%;
+}
 
 @media only screen and (max-width:750px){
     div.popup{

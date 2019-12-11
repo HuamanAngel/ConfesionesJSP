@@ -90,7 +90,8 @@
 						response.sendRedirect("../index.jsp");
 					}
 				}
-				out.println("Usuario y/o contraseña equivocado");
+				
+				out.println("<script type='text/javascript'>alert('Usuario y/o contraseña equivocado; vuelva a intentar');</script>");
 			}
 			
 		}catch(Exception e) {
